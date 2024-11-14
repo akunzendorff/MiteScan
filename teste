@@ -1,0 +1,103 @@
+//Inserir usuário
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class UsuarioDAO {
+
+    public void inserirUsuario(String nome, String email, String senha) {
+        String sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nome);
+            stmt.setString(2, email);
+            stmt.setString(3, senha);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+//Listar usuário
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UsuarioDAO {
+
+    public List<Usuario> listarUsuarios() {
+        String sql = "SELECT * FROM usuarios";
+        List<Usuario> usuarios = new ArrayList<>();
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setSenha(rs.getString("senha"));
+                usuarios.add(usuario);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+}
+
+//Atualizar usuário
+public void atualizarUsuario(int id, String nome, String email, String senha) {
+    String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?";
+
+    try (Connection conn = ConnectionFactory.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, nome);
+        stmt.setString(2, email);
+        stmt.setString(3, senha);
+        stmt.setInt(4, id);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+//Excluir usuário
+public void excluirUsuario(int id) {
+    String sql = "DELETE FROM usuarios WHERE id = ?";
+
+    try (Connection conn = ConnectionFactory.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, id);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+
+//Preencher tabela
+// Supondo que você tenha um JTable (Swing)
+DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
+UsuarioDAO usuarioDAO = new UsuarioDAO();
+List<Usuario> usuarios = usuarioDAO.listarUsuarios();
+
+for (Usuario usuario : usuarios) {
+    modelo.addRow(new Object[]{usuario.getId(), usuario.getNome(), usuario.getEmail()});
+}
