@@ -1,0 +1,109 @@
+btnLogin = new JButton("Login");
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtém o email e a senha inseridos
+                String email = txtEmail.getText();
+                String senha = new String(txtSenha.getPassword());
+
+                // Chama o método de login para verificar as credenciais
+                Usuario usuario = usuarioDAO.buscarUsuarioPorEmailESenha(email, senha);
+
+                if (usuario != null) {
+                    // Se o login for bem-sucedido, abre a Home
+                    HomeFrame.abrirHomeFrame(usuario);
+                    dispose(); // Fecha a janela de login
+                } else {
+                    // Se as credenciais estiverem incorretas
+                    JOptionPane.showMessageDialog(null, "Email ou senha incorretos!");
+                }
+            }
+        });
+        add(btnLogin);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }
+}
+
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fechar a janela 
+setSize(400, 200); // definir tamanho do frame
+
+
+
+btnPerfil.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Ao clicar no botão, abre a tela de perfil com os dados do usuário
+                PerfilFrame.abrirPerfilFrame(usuario);
+            }
+        });
+
+
+add(new JLabel("Nome:"));
+        lblNome = new JLabel(usuario.getNome());
+        add(lblNome);
+
+        add(new JLabel("Email:"));
+        lblEmail = new JLabel(usuario.getEmail());
+        add(lblEmail);
+    }
+
+    // Método para abrir o frame do perfil
+    public static void abrirPerfilFrame(Usuario usuario) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new PerfilFrame(usuario).setVisible(true);
+            }
+        });
+
+
+
+      import java.sql.*;
+
+public class UsuarioDAO {
+
+    public Usuario buscarUsuarioPorEmailESenha(String email, String senha) {
+        String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
+        Usuario usuario = null;
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("senha")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
+    }
+}
+
+
+
+
+
+
+
+
+
+
