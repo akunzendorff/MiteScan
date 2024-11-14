@@ -1,0 +1,73 @@
+import javax.swing.*;
+import java.awt.*;
+import java.sql.*;
+import java.util.ArrayList;
+
+public class MainFrame extends JFrame {
+
+    private JComboBox<String> comboCidades;
+    private JButton btnCarregarCidades;
+
+    public MainFrame() {
+        setTitle("Preencher JComboBox com Dados do Banco");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Layout
+        setLayout(new FlowLayout());
+
+        // Criação do JComboBox
+        comboCidades = new JComboBox<>();
+        add(comboCidades);
+
+        // Botão para carregar as cidades do banco de dados
+        btnCarregarCidades = new JButton("Carregar Cidades");
+        btnCarregarCidades.addActionListener(e -> carregarCidades());
+        add(btnCarregarCidades);
+    }
+
+    // Método para carregar as cidades do banco de dados e preencher o JComboBox
+    private void carregarCidades() {
+        try {
+            // Estabelece a conexão com o banco de dados
+            Connection conn = ConnectionFactory.getConnection();
+            
+            // Consulta SQL para obter os nomes das cidades
+            String sql = "SELECT nome_cidade FROM cidades";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            // Criação de uma lista para armazenar as cidades
+            ArrayList<String> cidades = new ArrayList<>();
+
+            // Adiciona as cidades ao ArrayList
+            while (rs.next()) {
+                cidades.add(rs.getString("nome_cidade"));
+            }
+
+            // Limpa a JComboBox antes de adicionar os dados
+            comboCidades.removeAllItems();
+
+            // Adiciona as cidades à JComboBox
+            for (String cidade : cidades) {
+                comboCidades.addItem(cidade);
+            }
+
+            // Fecha a conexão
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao carregar cidades: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new MainFrame().setVisible(true);
+        });
+    }
+}
