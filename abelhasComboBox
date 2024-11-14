@@ -1,0 +1,130 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainFrame extends JFrame {
+
+    private JTextField txtNomeColmeia;
+    private JComboBox<String> comboAbelhas;
+    private AbelhaDAO abelhaDAO;
+    private ColmeiaDAO colmeiaDAO;
+
+    public MainFrame() {
+        abelhaDAO = new AbelhaDAO();
+        colmeiaDAO = new ColmeiaDAO();
+
+        // Configuração da janela principal
+        setTitle("CRUD de Abelhas e Colmeias");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Layout
+        setLayout(new GridLayout(4, 2));
+
+        // Nome da Colmeia
+        add(new JLabel("Nome da Colmeia:"));
+        txtNomeColmeia = new JTextField();
+        add(txtNomeColmeia);
+
+        // ComboBox para selecionar a abelha
+        add(new JLabel("Escolha a Abelha:"));
+        comboAbelhas = new JComboBox<>();
+        atualizarComboAbelhas();  // Atualiza o ComboBox com as abelhas do banco
+        add(comboAbelhas);
+
+        // Botão para adicionar a colmeia
+        JButton btnAdicionarColmeia = new JButton("Adicionar Colmeia");
+        btnAdicionarColmeia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nomeColmeia = txtNomeColmeia.getText();
+                if (!nomeColmeia.isEmpty()) {
+                    // Obtém o ID da abelha selecionada
+                    String selectedAbelha = (String) comboAbelhas.getSelectedItem();
+                    int idAbelha = Integer.parseInt(selectedAbelha.split(" - ")[0]);
+                    colmeiaDAO.inserirColmeia(nomeColmeia, idAbelha);
+                    txtNomeColmeia.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite o nome da colmeia.");
+                }
+            }
+        });
+        add(btnAdicionarColmeia);
+    }
+
+    private void atualizarComboAbelhas() {
+        // Limpa o ComboBox
+        comboAbelhas.removeAllItems();
+
+        // Carrega a lista de abelhas no ComboBox
+        for (String abelha : abelhaDAO.listarAbelhas()) {
+            comboAbelhas.addItem(abelha);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AbelhaDAO {
+
+    public List<String> listarAbelhas() {
+        String sql = "SELECT id, nomeAbelha FROM abelhas";
+        List<String> abelhas = new ArrayList<>();
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                // Adicionando o ID e o nome da abelha no formato "ID - Nome"
+                abelhas.add(rs.getInt("id") + " - " + rs.getString("nomeAbelha"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return abelhas;
+    }
+}
+
+
+
+
+Explicação do Código
+Carregar as Abelhas: O método atualizarComboAbelhas() chama o método listarAbelhas() da classe AbelhaDAO, que retorna uma lista de abelhas já cadastradas no banco de dados. Esses dados são adicionados ao ComboBox. O formato da lista será algo como "1 - Abelha A", onde 1 é o ID da abelha e "Abelha A" é o nome.
+
+Selecionar a Abelha: O usuário seleciona a abelha desejada no ComboBox. Quando o botão "Adicionar Colmeia" é clicado, o ID da abelha é extraído da string selecionada (usando o método split(" - ")), e a colmeia é associada a essa abelha.
+
+Adicionar Colmeia: Quando o nome da colmeia é preenchido e o botão é pressionado, o sistema obtém o ID da abelha selecionada no ComboBox e o nome da colmeia do campo de texto. Em seguida, o nome da colmeia e o ID da abelha são salvos na tabela colmeias no banco de dados.
+
+Passo 3: Teste
+Abra o aplicativo.
+Verifique se a lista de abelhas (no ComboBox) é preenchida automaticamente com os nomes das abelhas já cadastradas no banco.
+Selecione uma abelha e insira o nome da colmeia.
+Clique em "Adicionar Colmeia" e verifique se a colmeia foi registrada no banco de dados com o ID correto da abelha.
+Considerações Finais
+Agora, o nome da abelha é puxado automaticamente do banco de dados e o usuário seleciona a abelha que deseja associar a uma colmeia. O fluxo de inserção da colmeia está totalmente dependente da seleção do usuário no ComboBox.
