@@ -1,0 +1,158 @@
+https://github.com/msteiger/JMapViewer // link da biblioteca do mapa
+
+import org.openstreetmap.gui.jmapviewer.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.*;
+import java.io.*;
+import org.json.JSONObject;
+
+public class MapPanel extends JPanel {
+
+    private JMapViewer mapViewer;
+    private JLabel lblCoordinates;
+    private JButton btnSalvar;
+    private double latitude;
+    private double longitude;
+
+    public MapPanel() {
+        setLayout(new BorderLayout());
+
+        // Configuração do painel de mapa
+        mapViewer = new JMapViewer();
+        mapViewer.setTileSource(TileSourceFactory.MAPNIK);  // Usando a fonte do OpenStreetMap
+        mapViewer.setZoom(5); // Zoom inicial
+
+        // Configuração do painel de informações
+        lblCoordinates = new JLabel("Clique no mapa para selecionar um local.");
+        add(lblCoordinates, BorderLayout.NORTH);
+
+        // Botão para salvar
+        btnSalvar = new JButton("Salvar Local");
+        btnSalvar.setEnabled(false);  // Inicialmente desabilitado
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveLocation();
+            }
+        });
+        add(btnSalvar, BorderLayout.SOUTH);
+
+        // Adicionando o mapa ao painel central
+        add(mapViewer, BorderLayout.CENTER);
+
+        // Adicionando um ouvinte de clique para pegar as coordenadas
+        mapViewer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                LatLon clickPos = mapViewer.getPosition(e.getPoint());
+                latitude = clickPos.getLat();
+                longitude = clickPos.getLon();
+
+                // Atualiza o label com as coordenadas
+                lblCoordinates.setText("Latitude: " + latitude + ", Longitude: " + longitude);
+
+                // Habilita o botão de salvar
+                btnSalvar.setEnabled(true);
+            }
+        });
+    }
+
+    // Método para salvar a localização no banco de dados
+    private void saveLocation() {
+        try {
+            // Determinar o nome da cidade com base nas coordenadas usando a API Nominatim (OpenStreetMap)
+            String cityName = getCityNameFromCoordinates(latitude, longitude);
+
+            // Agora salve esses dados no banco de dados (coordenadas e nome da cidade)
+            // Vamos chamar um método fictício para salvar no banco de dados
+            saveToDatabase(latitude, longitude, cityName);
+            JOptionPane.showMessageDialog(this, "Local salvo com sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao salvar local: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para obter o nome da cidade a partir das coordenadas
+    private String getCityNameFromCoordinates(double lat, double lon) throws Exception {
+        // Formatar a URL para a API de Geocodificação Nominatim
+        String urlString = "https://nominatim.openstreetmap.org/reverse?lat=" + lat + "&lon=" + lon + "&format=json";
+        URL url = new URL(urlString);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Ler a resposta da API
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+
+        // Parse a resposta JSON
+        JSONObject jsonResponse = new JSONObject(response.toString());
+        if (jsonResponse.has("address")) {
+            JSONObject address = jsonResponse.getJSONObject("address");
+            return address.optString("city", "Cidade não encontrada");
+        } else {
+            return "Cidade não encontrada";
+        }
+    }
+
+    // Método para salvar as coordenadas e o nome da cidade no banco de dados
+    private void saveToDatabase(double latitude, double longitude, String cityName) {
+        // Aqui você implementaria a lógica para salvar os dados no banco de dados
+        // Exemplo: salvar em uma tabela 'localizacao' com as colunas 'latitude', 'longitude', 'cidade'
+        System.out.println("Salvando local: " + cityName + " (" + latitude + ", " + longitude + ")");
+        // Implementar conexão com o banco de dados aqui
+    }
+}
+
+
+
+
+private void saveToDatabase(double latitude, double longitude, String cityName) {
+    String sql = "INSERT INTO localizacao (latitude, longitude, cidade) VALUES (?, ?, ?)";
+    
+    try (Connection conn = ConnectionFactory.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setDouble(1, latitude);
+        stmt.setDouble(2, longitude);
+        stmt.setString(3, cityName);
+        stmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro ao salvar local: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+
+
+
+import javax.swing.*;
+
+public class MainFrame extends JFrame {
+    public MainFrame() {
+        setTitle("Selecione um Local no Mapa");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Adiciona o painel do mapa
+        add(new MapPanel());
+
+        setLocationRelativeTo(null);  // Para centralizar a janela
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }
+}
