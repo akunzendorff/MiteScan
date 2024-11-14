@@ -158,11 +158,21 @@ public class FrmUsuario extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(226, 226, 226));
 
         lblNome.setText("...");
+        lblNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNomeMouseClicked(evt);
+            }
+        });
         lblNome.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblNomeInputMethodTextChanged(evt);
+            }
+        });
+        lblNome.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblNomePropertyChange(evt);
             }
         });
 
@@ -193,6 +203,11 @@ public class FrmUsuario extends javax.swing.JFrame {
                 lblEmailInputMethodTextChanged(evt);
             }
         });
+        lblEmail.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblEmailPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -221,6 +236,11 @@ public class FrmUsuario extends javax.swing.JFrame {
                 lblAcessoInputMethodTextChanged(evt);
             }
         });
+        lblAcesso.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblAcessoPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -247,6 +267,11 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblLoginInputMethodTextChanged(evt);
+            }
+        });
+        lblLogin.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblLoginPropertyChange(evt);
             }
         });
 
@@ -409,27 +434,43 @@ public class FrmUsuario extends javax.swing.JFrame {
 
     private void lblNomeInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNomeInputMethodTextChanged
         // TODO add your handling code here:
-        String  nomeUser = usu.getNome();
-        lblNome.setText(nomeUser);
+        
     }//GEN-LAST:event_lblNomeInputMethodTextChanged
 
     private void lblEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblEmailInputMethodTextChanged
         // TODO add your handling code here:
-        String  emailUser = usu.getEmail();
-        lblEmail.setText(emailUser);
+        
     }//GEN-LAST:event_lblEmailInputMethodTextChanged
 
     private void lblLoginInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblLoginInputMethodTextChanged
         // TODO add your handling code here:
-        String  loginUser = usu.getLogin();
-        lblLogin.setText(loginUser);
+        
     }//GEN-LAST:event_lblLoginInputMethodTextChanged
 
     private void lblAcessoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblAcessoInputMethodTextChanged
         // TODO add your handling code here:
-        String  acessoUser = usu.getAcesso();
-        lblAcesso.setText(acessoUser);
+        
     }//GEN-LAST:event_lblAcessoInputMethodTextChanged
+
+    private void lblNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNomeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblNomeMouseClicked
+
+    private void lblNomePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNomePropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblNomePropertyChange
+
+    private void lblEmailPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblEmailPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblEmailPropertyChange
+
+    private void lblLoginPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblLoginPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblLoginPropertyChange
+
+    private void lblAcessoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblAcessoPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblAcessoPropertyChange
 
     /**
      * @param args the command line arguments

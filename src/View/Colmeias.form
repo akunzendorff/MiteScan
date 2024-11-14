@@ -90,7 +90,7 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -239,6 +239,16 @@
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -252,7 +262,7 @@
                           <Component id="lblCidade1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCoordenadas2" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="199" max="32767" attributes="0"/>
+                      <EmptySpace pref="195" max="32767" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="141" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -339,6 +349,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblNomeColmeia1InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblNomeColmeia1PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTipoAbelha1">
@@ -347,6 +358,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblTipoAbelha1InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblTipoAbelha1PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCidade1">
@@ -355,6 +367,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCidade1InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCidade1PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCoordenadas2">
@@ -363,11 +376,22 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas2InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas2PropertyChange"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -468,6 +492,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblNomeColmeia2InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblNomeColmeia2PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTipoAbelha2">
@@ -476,6 +501,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblTipoAbelha2InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblTipoAbelha2PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCidade2">
@@ -484,6 +510,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCidade2InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCidade2PropertyChange"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCoordenadas3">
@@ -492,6 +519,7 @@
               </Properties>
               <Events>
                 <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas3InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas3PropertyChange"/>
               </Events>
             </Component>
           </SubComponents>

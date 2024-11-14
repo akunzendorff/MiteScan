@@ -31,12 +31,12 @@ public class EditarColmeiaII extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblColmeia = new javax.swing.JLabel();
+        lblAbelha = new javax.swing.JLabel();
+        lblCidade = new javax.swing.JLabel();
+        lblLocalizacao = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JLabel();
+        btnAlterar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,49 +46,76 @@ public class EditarColmeiaII extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/icones_confirmar.png"))); // NOI18N
 
-        jLabel2.setText("Colmeia");
+        lblColmeia.setText("...");
+        lblColmeia.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblColmeiaPropertyChange(evt);
+            }
+        });
 
-        jLabel3.setText("tipo");
+        lblAbelha.setText("...");
+        lblAbelha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblAbelhaPropertyChange(evt);
+            }
+        });
 
-        jLabel4.setText("cidade");
+        lblCidade.setText("...");
+        lblCidade.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblCidadePropertyChange(evt);
+            }
+        });
 
-        jLabel5.setText("Localizacao");
+        lblLocalizacao.setText("...");
+        lblLocalizacao.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblLocalizacaoPropertyChange(evt);
+            }
+        });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btn_cancelar.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btn_cancelar.png"))); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnAlterar (2).png"))); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnAlterar (2).png"))); // NOI18N
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel7)
-                                .addGap(49, 49, 49)
-                                .addComponent(jLabel8)
-                                .addGap(17, 17, 17))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(jLabel5)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addGap(79, 79, 79)
+                                .addComponent(btnAlterar)
+                                .addGap(26, 26, 26))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblAbelha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblColmeia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblLocalizacao)))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,17 +128,17 @@ public class EditarColmeiaII extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(lblColmeia)
                                 .addGap(26, 26, 26)
-                                .addComponent(jLabel3)
+                                .addComponent(lblAbelha)
                                 .addGap(32, 32, 32)
-                                .addComponent(jLabel4)
+                                .addComponent(lblCidade)
                                 .addGap(25, 25, 25)
-                                .addComponent(jLabel5))
+                                .addComponent(lblLocalizacao))
                             .addComponent(jLabel6))
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel7))
-                    .addComponent(jLabel8))
+                        .addComponent(btnCancelar))
+                    .addComponent(btnAlterar))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
@@ -134,6 +161,31 @@ public class EditarColmeiaII extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblColmeiaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblColmeiaPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblColmeiaPropertyChange
+
+    private void lblAbelhaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblAbelhaPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblAbelhaPropertyChange
+
+    private void lblCidadePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCidadePropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCidadePropertyChange
+
+    private void lblLocalizacaoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblLocalizacaoPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblLocalizacaoPropertyChange
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAlterarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -171,14 +223,14 @@ public class EditarColmeiaII extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAlterar;
+    private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAbelha;
+    private javax.swing.JLabel lblCidade;
+    private javax.swing.JLabel lblColmeia;
+    private javax.swing.JLabel lblLocalizacao;
     // End of variables declaration//GEN-END:variables
 }

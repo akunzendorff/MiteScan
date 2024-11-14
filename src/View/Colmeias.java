@@ -6,6 +6,8 @@
 package View;
 
 import Model.Colmeia;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  *
@@ -167,6 +169,9 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/canetaEditar.png"))); // NOI18N
         btnEditar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -195,6 +200,11 @@ public class Colmeias extends javax.swing.JFrame {
                 lblNomeColmeia1InputMethodTextChanged(evt);
             }
         });
+        lblNomeColmeia1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblNomeColmeia1PropertyChange(evt);
+            }
+        });
 
         lblTipoAbelha1.setText("...");
         lblTipoAbelha1.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -202,6 +212,11 @@ public class Colmeias extends javax.swing.JFrame {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblTipoAbelha1InputMethodTextChanged(evt);
+            }
+        });
+        lblTipoAbelha1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblTipoAbelha1PropertyChange(evt);
             }
         });
 
@@ -213,6 +228,11 @@ public class Colmeias extends javax.swing.JFrame {
                 lblCidade1InputMethodTextChanged(evt);
             }
         });
+        lblCidade1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblCidade1PropertyChange(evt);
+            }
+        });
 
         lblCoordenadas2.setText("...");
         lblCoordenadas2.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -220,6 +240,11 @@ public class Colmeias extends javax.swing.JFrame {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblCoordenadas2InputMethodTextChanged(evt);
+            }
+        });
+        lblCoordenadas2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblCoordenadas2PropertyChange(evt);
             }
         });
 
@@ -235,7 +260,7 @@ public class Colmeias extends javax.swing.JFrame {
                     .addComponent(lblTipoAbelha1)
                     .addComponent(lblCidade1)
                     .addComponent(lblCoordenadas2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
@@ -268,6 +293,9 @@ public class Colmeias extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         btnEditar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/canetaEditar.png"))); // NOI18N
         btnEditar3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -296,6 +324,11 @@ public class Colmeias extends javax.swing.JFrame {
                 lblNomeColmeia2InputMethodTextChanged(evt);
             }
         });
+        lblNomeColmeia2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblNomeColmeia2PropertyChange(evt);
+            }
+        });
 
         lblTipoAbelha2.setText("...");
         lblTipoAbelha2.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -303,6 +336,11 @@ public class Colmeias extends javax.swing.JFrame {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblTipoAbelha2InputMethodTextChanged(evt);
+            }
+        });
+        lblTipoAbelha2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblTipoAbelha2PropertyChange(evt);
             }
         });
 
@@ -314,6 +352,11 @@ public class Colmeias extends javax.swing.JFrame {
                 lblCidade2InputMethodTextChanged(evt);
             }
         });
+        lblCidade2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblCidade2PropertyChange(evt);
+            }
+        });
 
         lblCoordenadas3.setText("...");
         lblCoordenadas3.addInputMethodListener(new java.awt.event.InputMethodListener() {
@@ -321,6 +364,11 @@ public class Colmeias extends javax.swing.JFrame {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblCoordenadas3InputMethodTextChanged(evt);
+            }
+        });
+        lblCoordenadas3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblCoordenadas3PropertyChange(evt);
             }
         });
 
@@ -405,7 +453,7 @@ public class Colmeias extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -514,51 +562,83 @@ public class Colmeias extends javax.swing.JFrame {
 
     private void lblNomeColmeia1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNomeColmeia1InputMethodTextChanged
         // TODO add your handling code here:
-        String nomeColmeia = c.getNome();
-        lblNomeColmeia1.setText(nomeColmeia);
+        
     }//GEN-LAST:event_lblNomeColmeia1InputMethodTextChanged
 
     private void lblTipoAbelha1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblTipoAbelha1InputMethodTextChanged
         // TODO add your handling code here:
-        int idAbelha  = c.getIdAbelha();
-        lblTipoAbelha1.set(Integer.parseInt(idAbelha));
+       
     }//GEN-LAST:event_lblTipoAbelha1InputMethodTextChanged
 
     private void lblCidade1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCidade1InputMethodTextChanged
         // TODO add your handling code here:
-        String Cidade = c.getNome();
-        lblCidade1.setText(Cidade);
+       
     }//GEN-LAST:event_lblCidade1InputMethodTextChanged
 
     private void lblCoordenadas2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas2InputMethodTextChanged
         // TODO add your handling code here:
-        String coordenadaColmeia = c.getNome();
-        lblCoordenadas2.setText(coordenadaColmeia);
+        
     }//GEN-LAST:event_lblCoordenadas2InputMethodTextChanged
 
     private void lblNomeColmeia2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNomeColmeia2InputMethodTextChanged
         // TODO add your handling code here:
-        String nomeColmeia = c.getNome();
-        lblNomeColmeia2.setText(nomeColmeia);
+        
     }//GEN-LAST:event_lblNomeColmeia2InputMethodTextChanged
 
     private void lblTipoAbelha2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblTipoAbelha2InputMethodTextChanged
         // TODO add your handling code here:
-        int idAbelha  = c.getIdAbelha();
-        lblTipoAbelha1.setText(Integer.parseInt(idAbelha));
+       
     }//GEN-LAST:event_lblTipoAbelha2InputMethodTextChanged
 
     private void lblCidade2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCidade2InputMethodTextChanged
         // TODO add your handling code here:
-        String Cidade = c.getNome();
-        lblCidade2.setText(Cidade);
+      
     }//GEN-LAST:event_lblCidade2InputMethodTextChanged
 
     private void lblCoordenadas3InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas3InputMethodTextChanged
         // TODO add your handling code here:
-        String coordenadaColmeia = c.getNome();
-        lblCoordenadas2.setText(coordenadaColmeia);
+   
     }//GEN-LAST:event_lblCoordenadas3InputMethodTextChanged
+
+    private void lblNomeColmeia1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNomeColmeia1PropertyChange
+        // TODO add your handling code here:
+         c.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("nome".equals(evt.getPropertyName())) {
+                    String nomeColmeia = c.getNome();
+                    lblNomeColmeia2.setText(nomeColmeia);
+                }
+            }
+         });
+    }//GEN-LAST:event_lblNomeColmeia1PropertyChange
+
+    private void lblTipoAbelha1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblTipoAbelha1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTipoAbelha1PropertyChange
+
+    private void lblCidade1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCidade1PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCidade1PropertyChange
+
+    private void lblCoordenadas2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas2PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCoordenadas2PropertyChange
+
+    private void lblNomeColmeia2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNomeColmeia2PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblNomeColmeia2PropertyChange
+
+    private void lblTipoAbelha2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblTipoAbelha2PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTipoAbelha2PropertyChange
+
+    private void lblCidade2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCidade2PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCidade2PropertyChange
+
+    private void lblCoordenadas3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas3PropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCoordenadas3PropertyChange
 
     /**
      * @param args the command line arguments

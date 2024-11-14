@@ -6,7 +6,13 @@
 package Model;
 
 import Control.Conexao;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,21 +25,23 @@ public class Colmeia {
     private String locLat;
     private String locLong;
     private String tamanho;
-    private int idAbelha;
+    private String tipoAbelha;
+    
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     
     Conexao con = new Conexao();
 
     public Colmeia() {
-        this(0, "", "", "", "", 0);
+        this(0, "", "", "", "", "");
     }
 
-    public Colmeia(int codigo, String nome, String locLat, String locLong, String tamanho, int idAbelha) {
+    public Colmeia(int codigo, String nome, String locLat, String locLong, String tamanho, String tipoAbelha) {
         this.codigo = codigo;
         this.nome = nome;
         this.locLat = locLat;
         this.locLong = locLong;
         this.tamanho = tamanho;
-        this.idAbelha = idAbelha;
+        this.tipoAbelha = tipoAbelha;
     }
 
     public int getCodigo() {
@@ -49,7 +57,9 @@ public class Colmeia {
     }
 
     public void setNome(String nome) {
+        String oldNome = this.nome;
         this.nome = nome;
+        support.firePropertyChange("nome", oldNome, nome);
     }
 
     public String getLocLat() {
@@ -76,18 +86,18 @@ public class Colmeia {
         this.tamanho = tamanho;
     }
 
-    public int getIdAbelha() {
-        return idAbelha;
+    public String getTipoAbelha() {
+        return tipoAbelha;
     }
 
-    public void setIdAbelha(int idAbelha) {
-        this.idAbelha = idAbelha;
+    public void setTipoAbelha(String tipoAbelha) {
+        this.tipoAbelha = tipoAbelha;
     }
     
     public void cadastrarColmeia(){
         String sql = "Insert into colmeias (id_colmeia, nome, locLat, locLong, tamanho, id_abelha) values " +
                 "(" + getCodigo() + ",'" + getNome() + "','" + getLocLat()
-                + "','" + getLocLong() + "','" + getTamanho() + "', " + getIdAbelha() + " )";
+                + "','" + getLocLong() + "','" + getTamanho() + "', " + getTipoAbelha() + " )";
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registrado com sucesso!");  
@@ -114,10 +124,21 @@ public class Colmeia {
         String sql;
         sql = "Update colmeias set nome = '" + getNome() + "', loclat = '" + getLocLat()
                 + "', loclong = '" + getLocLong() + "', tamanho = '" + getTamanho()
-                + "', id_abelha = " + getIdAbelha() + " where id_colmeia = " + getCodigo();
+                + "', id_abelha = " + getTipoAbelha() + " where id_colmeia = " + getCodigo();
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
     }
     
+    public String buscarNome(){
+        String sql;
+        sql = "select nome from colmeias";
+        
+        con.executeSQL(sql);
+        return "";
+    }
+   
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
 }

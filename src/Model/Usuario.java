@@ -125,7 +125,31 @@ public class Usuario {
           tabela = null;
 
            String sql = "select * from usuarios where email= '" + getEmail() + "' and senha= '" + getSenha() + "' " ;
-            tabela= con.RetornarResultset(sql);  
+            tabela = con.RetornarResultset(sql);  
             return tabela;
       }
+    
+    public String dadosUsuario(){
+        String sql;
+        sql = "Select * from usuarios";
+        
+        con.executeSQL(sql);
+        return "";
+    }
+    
+    public ResultSet consultarCampoEspecifico(){
+           ResultSet tabela;
+           tabela = null;
+
+           try{
+             String sql="Select * from usuarios where nome like '"+ getNome()+"%'";
+             tabela= con.RetornarResultset(sql);                  
+
+              }
+              catch(Exception sqle){
+                   JOptionPane.showMessageDialog(null,"Atenção..."+sqle.getMessage());
+              }
+           return tabela;    
+       }
+    
 }

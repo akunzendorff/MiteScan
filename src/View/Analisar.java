@@ -5,6 +5,8 @@
  */
 package View;
 
+import Model.Colmeia;
+
 /**
  *
  * @author fatec-dsm2
@@ -18,6 +20,8 @@ public class Analisar extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    Colmeia c = new Colmeia();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +43,7 @@ public class Analisar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comboBoxColmeias = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnAnalisar = new javax.swing.JLabel();
@@ -99,11 +103,11 @@ public class Analisar extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(btnMiteScan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
                 .addComponent(btnHome)
-                .addGap(45, 45, 45)
+                .addGap(60, 60, 60)
                 .addComponent(btnColmeias)
-                .addGap(73, 73, 73)
+                .addGap(58, 58, 58)
                 .addComponent(btnHistorico)
                 .addGap(55, 55, 55)
                 .addComponent(btnAnalises)
@@ -129,7 +133,7 @@ public class Analisar extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("SELECIONE A COLMEIA:");
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/seta.png"))); // NOI18N
@@ -142,7 +146,19 @@ public class Analisar extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setText("ANALISAR AGORA");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colmeia 1", "Colmeia 2", "Colmeia 3", "Colmeia 4" }));
+        comboBoxColmeias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colmeia 1", "...", " ", " ", " " }));
+        comboBoxColmeias.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                comboBoxColmeiasInputMethodTextChanged(evt);
+            }
+        });
+        comboBoxColmeias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxColmeiasActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/imgAbelha.png"))); // NOI18N
 
@@ -182,40 +198,36 @@ public class Analisar extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(54, 54, 54)
+                .addComponent(btnVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addContainerGap(542, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(btnVoltar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
                         .addComponent(jLabel4)
-                        .addGap(40, 40, 40)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBoxColmeias, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(219, 219, 219))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVoltar)
                     .addComponent(jLabel5))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxColmeias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addGap(0, 56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,6 +306,16 @@ public class Analisar extends javax.swing.JFrame {
         load.setVisible(true);
     }//GEN-LAST:event_btnAnalisarMouseClicked
 
+    private void comboBoxColmeiasInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_comboBoxColmeiasInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxColmeiasInputMethodTextChanged
+
+    private void comboBoxColmeiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxColmeiasActionPerformed
+        // TODO add your handling code here:
+        comboBoxColmeias.removeAllItems();
+        comboBoxColmeias.addItem(c.buscarNome());
+    }//GEN-LAST:event_comboBoxColmeiasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -338,7 +360,7 @@ public class Analisar extends javax.swing.JFrame {
     private javax.swing.JLabel btnMiteScan;
     private javax.swing.JLabel btnPerfil;
     private javax.swing.JLabel btnVoltar;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox comboBoxColmeias;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

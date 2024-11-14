@@ -143,8 +143,13 @@ public class ConclusaoAnalise extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/img-analise-concluida.png"))); // NOI18N
 
         lblData.setText("...");
+        lblData.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                lblDataPropertyChange(evt);
+            }
+        });
 
-        jLabel1.setText("Data:");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/DATA_.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/icon-analise-concluida.png"))); // NOI18N
 
@@ -172,13 +177,13 @@ public class ConclusaoAnalise extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblData)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(lblData))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -292,6 +297,10 @@ public class ConclusaoAnalise extends javax.swing.JFrame {
         Analisar a = new Analisar();
         a.setVisible(true);
     }//GEN-LAST:event_btnAnalisesMouseClicked
+
+    private void lblDataPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblDataPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblDataPropertyChange
 
     /**
      * @param args the command line arguments
