@@ -8,11 +8,10 @@ package Model;
 import Control.Conexao;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JComboBox;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -141,4 +140,61 @@ public class Colmeia {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+    
+    public ArrayList carregarColmeias(){
+       ArrayList<String> colmeias = new ArrayList<>();
+        try{
+            ResultSet rs;
+            String sql = "select nome from colmeias";
+            rs = con.RetornarResultset(sql);
+            
+            while(rs.next()){
+                colmeias.add(rs.getString("nome"));
+            }
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao carregar cidades: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        return colmeias;
+    }
+    
+    public HashMap colmeiasUsuario(Integer idUsuario) throws SQLException{
+        ResultSet rs;
+        String sql = "select \n" +
+            "    a.id_analise,\n" +
+            "    u.id_usuario,\n" +
+            "    c.id_colmeia,\n" +
+            "    c.nome as nome_colmeia,\n" +
+            "    c.locLat,\n" +
+            "    c.locLong,\n" +
+            "    ab.id_abelha,\n" +
+            "    ab.nome as nome_abelha \n" +
+            "from \n" +
+            "    Usuarios u\n" +
+            "join \n" +
+            "    Analises a on u.id_usuario = a.id_usuario\n" +
+            "join \n" +
+            "    Colmeias c on a.id_colmeia = c.id_colmeia\n" +
+            "join \n" +
+            "    Abelhas ab on c.id_abelha = ab.id_abelha\n" +
+            "where \n" +
+            "    u.id_usuario = " + idUsuario;
+        
+        rs = con.RetornarResultset(sql);
+        
+        HashMap<String, String> dadosColmeia = new HashMap();
+        
+        if(rs.first()){
+            dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
+            dadosColmeia.put("localizacao", rs.getString("locLat") + rs.getString("locLong"));
+            dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+        } 
+        
+        System.out.println(dadosColmeia);
+        
+        return dadosColmeia;
+        
+    }
+    
 }

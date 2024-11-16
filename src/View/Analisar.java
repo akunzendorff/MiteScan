@@ -6,6 +6,7 @@
 package View;
 
 import Model.Colmeia;
+import java.util.ArrayList;
 
 /**
  *
@@ -49,6 +50,11 @@ public class Analisar extends javax.swing.JFrame {
         btnAnalisar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -312,9 +318,19 @@ public class Analisar extends javax.swing.JFrame {
 
     private void comboBoxColmeiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxColmeiasActionPerformed
         // TODO add your handling code here:
-        comboBoxColmeias.removeAllItems();
-        comboBoxColmeias.addItem(c.buscarNome());
+        
     }//GEN-LAST:event_comboBoxColmeiasActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        comboBoxColmeias.removeAllItems();
+        
+        ArrayList colmeias = c.carregarColmeias();
+        
+        for(Object colmeia : colmeias){
+            comboBoxColmeias.addItem(colmeia);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

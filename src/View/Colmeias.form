@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -260,7 +263,7 @@
                           <Component id="lblNomeColmeia1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTipoAbelha1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCidade1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCoordenadas2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCoordenadas1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="195" max="32767" attributes="0"/>
                       <Component id="jLabel7" min="-2" pref="141" max="-2" attributes="0"/>
@@ -295,7 +298,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="lblCidade1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="lblCoordenadas2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCoordenadas1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -370,13 +373,13 @@
                 <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCidade1PropertyChange"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCoordenadas2">
+            <Component class="javax.swing.JLabel" name="lblCoordenadas1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
               </Properties>
               <Events>
-                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas2InputMethodTextChanged"/>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas2PropertyChange"/>
+                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas1InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas1PropertyChange"/>
               </Events>
             </Component>
           </SubComponents>
@@ -403,7 +406,7 @@
                           <Component id="lblNomeColmeia2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTipoAbelha2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblCidade2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCoordenadas3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCoordenadas2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="134" max="-2" attributes="0"/>
@@ -438,7 +441,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="lblCidade2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="lblCoordenadas3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCoordenadas2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -513,13 +516,13 @@
                 <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCidade2PropertyChange"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblCoordenadas3">
+            <Component class="javax.swing.JLabel" name="lblCoordenadas2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="..."/>
               </Properties>
               <Events>
-                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas3InputMethodTextChanged"/>
-                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas3PropertyChange"/>
+                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="lblCoordenadas2InputMethodTextChanged"/>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="lblCoordenadas2PropertyChange"/>
               </Events>
             </Component>
           </SubComponents>

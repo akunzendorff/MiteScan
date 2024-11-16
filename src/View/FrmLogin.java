@@ -6,6 +6,7 @@
 package View;
 
 import Model.Usuario;
+import static Utils.Constantes.usuarioId;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -99,7 +100,16 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/Email_.png"))); // NOI18N
 
+        txtEmail.setText("ana@abelha.com");
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/Senha_.png"))); // NOI18N
+
+        txtSenha.setText("ana123");
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Não possui conta?");
 
@@ -303,13 +313,10 @@ public class FrmLogin extends javax.swing.JFrame {
             if(tabela.first()) {
 
                 JOptionPane.showMessageDialog(null,"usuario autenticado");
-
-                String  emailUser = txtEmail.getText();
-
-                FrmUsuario fu = new FrmUsuario();
-                fu.setVisible(true);
-
-                fu.lblEmail.setText(emailUser);
+                
+                usuarioId = Integer.parseInt(tabela.getString("id_usuario"));
+                Home telaHome = new Home();
+                telaHome.setVisible(true);
 
             } else {
 
@@ -320,6 +327,10 @@ public class FrmLogin extends javax.swing.JFrame {
             Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEntrarMouseClicked
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
      * @param args the command line arguments

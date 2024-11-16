@@ -7,6 +7,8 @@ package Model;
 
 import Control.Conexao;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -121,20 +123,31 @@ public class Usuario {
     
     public ResultSet logar()
       {
-          ResultSet tabela;
-          tabela = null;
+        ResultSet tabela;
+        tabela = null;
 
-           String sql = "select * from usuarios where email= '" + getEmail() + "' and senha= '" + getSenha() + "' " ;
-            tabela = con.RetornarResultset(sql);  
-            return tabela;
+        String sql = "select * from usuarios where email= '" + getEmail() + "' and senha= '" + getSenha() + "' " ;
+        tabela = con.RetornarResultset(sql);  
+        return tabela;
       }
     
-    public String dadosUsuario(){
-        String sql;
-        sql = "Select * from usuarios";
+    public HashMap dadosUsuario(Integer idUsuario) throws SQLException{
+        ResultSet rs;
+        String sql = "select * from usuarios where id_usuario = " + idUsuario;
         
-        con.executeSQL(sql);
-        return "";
+        rs = con.RetornarResultset(sql);
+        
+        HashMap<String, String> dadosUsuario = new HashMap();
+        System.out.println(rs.first());
+        System.out.println(rs.getString("nome"));
+        if(rs.first()){
+            dadosUsuario.put("nome", rs.getString("nome"));
+            dadosUsuario.put("email", rs.getString("email"));
+            dadosUsuario.put("login", rs.getString("login"));
+            dadosUsuario.put("acesso", rs.getString("acesso"));
+        }
+        
+        return dadosUsuario;
     }
     
     public ResultSet consultarCampoEspecifico(){

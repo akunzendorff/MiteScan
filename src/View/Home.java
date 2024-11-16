@@ -6,6 +6,8 @@
  */
 package View;
 
+import static Utils.Constantes.usuarioId;
+
 /**
  *
  * @author fatec-dsm2
@@ -41,6 +43,11 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -208,6 +215,11 @@ public class Home extends javax.swing.JFrame {
         Historico hist = new Historico();
         hist.setVisible(true);
     }//GEN-LAST:event_btnHistoricoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        System.out.println(usuarioId);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

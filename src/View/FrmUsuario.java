@@ -6,6 +6,11 @@
 package View;
 
 import Model.Usuario;
+import static Utils.Constantes.usuarioId;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,8 +58,14 @@ public class FrmUsuario extends javax.swing.JFrame {
         lblAcesso = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -331,6 +342,13 @@ public class FrmUsuario extends javax.swing.JFrame {
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnEditar.png"))); // NOI18N
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -345,7 +363,10 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(219, 219, 219)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(426, 426, 426)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(228, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -358,9 +379,11 @@ public class FrmUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel4)))
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -472,6 +495,30 @@ public class FrmUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblAcessoPropertyChange
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            // TODO add your handling code here:
+            HashMap dadosUsuario = usu.dadosUsuario(usuarioId);
+            
+            System.out.println(dadosUsuario);
+            
+            lblNome.setText((String) dadosUsuario.get("nome"));
+            lblEmail.setText((String) dadosUsuario.get("email"));
+            lblLogin.setText((String) dadosUsuario.get("login"));
+            lblAcesso.setText((String) dadosUsuario.get("acesso"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        EditarUsuario es = new EditarUsuario();
+        es.setVisible(true);
+    }//GEN-LAST:event_btnEditarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -510,6 +557,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAnalises;
     private javax.swing.JLabel btnColmeias;
+    private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnMiteScan;

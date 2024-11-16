@@ -6,8 +6,13 @@
 package View;
 
 import Model.Colmeia;
+import static Utils.Constantes.usuarioId;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,7 +60,7 @@ public class Colmeias extends javax.swing.JFrame {
         lblNomeColmeia1 = new javax.swing.JLabel();
         lblTipoAbelha1 = new javax.swing.JLabel();
         lblCidade1 = new javax.swing.JLabel();
-        lblCoordenadas2 = new javax.swing.JLabel();
+        lblCoordenadas1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnEditar3 = new javax.swing.JLabel();
         btnExcluir3 = new javax.swing.JLabel();
@@ -65,9 +70,14 @@ public class Colmeias extends javax.swing.JFrame {
         lblNomeColmeia2 = new javax.swing.JLabel();
         lblTipoAbelha2 = new javax.swing.JLabel();
         lblCidade2 = new javax.swing.JLabel();
-        lblCoordenadas3 = new javax.swing.JLabel();
+        lblCoordenadas2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -234,17 +244,17 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
-        lblCoordenadas2.setText("...");
-        lblCoordenadas2.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        lblCoordenadas1.setText("...");
+        lblCoordenadas1.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                lblCoordenadas2InputMethodTextChanged(evt);
+                lblCoordenadas1InputMethodTextChanged(evt);
             }
         });
-        lblCoordenadas2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        lblCoordenadas1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                lblCoordenadas2PropertyChange(evt);
+                lblCoordenadas1PropertyChange(evt);
             }
         });
 
@@ -259,7 +269,7 @@ public class Colmeias extends javax.swing.JFrame {
                     .addComponent(lblNomeColmeia1)
                     .addComponent(lblTipoAbelha1)
                     .addComponent(lblCidade1)
-                    .addComponent(lblCoordenadas2))
+                    .addComponent(lblCoordenadas1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -289,7 +299,7 @@ public class Colmeias extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(lblCidade1)
                 .addGap(26, 26, 26)
-                .addComponent(lblCoordenadas2)
+                .addComponent(lblCoordenadas1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -358,17 +368,17 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
-        lblCoordenadas3.setText("...");
-        lblCoordenadas3.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        lblCoordenadas2.setText("...");
+        lblCoordenadas2.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                lblCoordenadas3InputMethodTextChanged(evt);
+                lblCoordenadas2InputMethodTextChanged(evt);
             }
         });
-        lblCoordenadas3.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        lblCoordenadas2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                lblCoordenadas3PropertyChange(evt);
+                lblCoordenadas2PropertyChange(evt);
             }
         });
 
@@ -383,7 +393,7 @@ public class Colmeias extends javax.swing.JFrame {
                     .addComponent(lblNomeColmeia2)
                     .addComponent(lblTipoAbelha2)
                     .addComponent(lblCidade2)
-                    .addComponent(lblCoordenadas3))
+                    .addComponent(lblCoordenadas2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -413,7 +423,7 @@ public class Colmeias extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(lblCidade2)
                 .addGap(26, 26, 26)
-                .addComponent(lblCoordenadas3)
+                .addComponent(lblCoordenadas2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -575,10 +585,10 @@ public class Colmeias extends javax.swing.JFrame {
        
     }//GEN-LAST:event_lblCidade1InputMethodTextChanged
 
-    private void lblCoordenadas2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas2InputMethodTextChanged
+    private void lblCoordenadas1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas1InputMethodTextChanged
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_lblCoordenadas2InputMethodTextChanged
+    }//GEN-LAST:event_lblCoordenadas1InputMethodTextChanged
 
     private void lblNomeColmeia2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNomeColmeia2InputMethodTextChanged
         // TODO add your handling code here:
@@ -595,10 +605,10 @@ public class Colmeias extends javax.swing.JFrame {
       
     }//GEN-LAST:event_lblCidade2InputMethodTextChanged
 
-    private void lblCoordenadas3InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas3InputMethodTextChanged
+    private void lblCoordenadas2InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblCoordenadas2InputMethodTextChanged
         // TODO add your handling code here:
    
-    }//GEN-LAST:event_lblCoordenadas3InputMethodTextChanged
+    }//GEN-LAST:event_lblCoordenadas2InputMethodTextChanged
 
     private void lblNomeColmeia1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNomeColmeia1PropertyChange
         // TODO add your handling code here:
@@ -620,9 +630,9 @@ public class Colmeias extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblCidade1PropertyChange
 
-    private void lblCoordenadas2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas2PropertyChange
+    private void lblCoordenadas1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas1PropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblCoordenadas2PropertyChange
+    }//GEN-LAST:event_lblCoordenadas1PropertyChange
 
     private void lblNomeColmeia2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNomeColmeia2PropertyChange
         // TODO add your handling code here:
@@ -636,9 +646,25 @@ public class Colmeias extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblCidade2PropertyChange
 
-    private void lblCoordenadas3PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas3PropertyChange
+    private void lblCoordenadas2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblCoordenadas2PropertyChange
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblCoordenadas3PropertyChange
+    }//GEN-LAST:event_lblCoordenadas2PropertyChange
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            // TODO add your handling code here:
+            HashMap dadosColmeia = c.colmeiasUsuario(usuarioId);
+            
+            lblNomeColmeia1.setText((String) dadosColmeia.get("nome_colmeia"));
+            lblCoordenadas1.setText((String) dadosColmeia.get("localilzacao"));
+            lblTipoAbelha1.setText((String) dadosColmeia.get("nome_abelha"));
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Colmeias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -702,8 +728,8 @@ public class Colmeias extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lblCidade1;
     private javax.swing.JLabel lblCidade2;
+    private javax.swing.JLabel lblCoordenadas1;
     private javax.swing.JLabel lblCoordenadas2;
-    private javax.swing.JLabel lblCoordenadas3;
     private javax.swing.JLabel lblNomeColmeia1;
     private javax.swing.JLabel lblNomeColmeia2;
     private javax.swing.JLabel lblTipoAbelha1;

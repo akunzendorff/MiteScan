@@ -5,6 +5,13 @@
  */
 package View;
 
+import Model.Usuario;
+import static Utils.Constantes.usuarioId;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author fatec-dsm2
@@ -18,6 +25,8 @@ public class EditarUsuario extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    Usuario usu = new Usuario();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +61,11 @@ public class EditarUsuario extends javax.swing.JFrame {
         btnEditar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -437,6 +451,24 @@ public class EditarUsuario extends javax.swing.JFrame {
     private void lblAcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAcessoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblAcessoMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            HashMap dadosUsuario = usu.dadosUsuario(usuarioId);
+            
+            System.out.println(dadosUsuario);
+            
+            lblNome.setText((String) dadosUsuario.get("nome"));
+            lblEmail.setText((String) dadosUsuario.get("email"));
+            lblLogin.setText((String) dadosUsuario.get("login"));
+            lblAcesso.setText((String) dadosUsuario.get("acesso"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
