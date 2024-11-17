@@ -10,6 +10,13 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.Usuario;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.JTableHeader;
+
 
 /**
  *
@@ -20,52 +27,147 @@ public class ListarUsuario extends javax.swing.JFrame {
     /**
      * Creates new form ListarUsuario
      */
+    private static List<Usuario> usuarios = new ArrayList<>();
+    private static boolean isOrdered = true;
+    
     public ListarUsuario() {
         initComponents();
+        jtblUsuarios.getTableHeader().addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTableHeader header = jtblUsuarios.getTableHeader();
+                int columnIndex = header.columnAtPoint(evt.getPoint());
+                String columnName = header.getColumnModel().getColumn(columnIndex).getHeaderValue().toString();
+                
+                Boolean porString = null;
+                if(columnName.equals("Código")) porString = false;
+                else porString = true;
+                
+                DefaultTableModel tabelaUsuarios = (DefaultTableModel) jtblUsuarios.getModel();
+                if (isOrdered) {                    
+                    // Desordena a lista
+                    quickSort(usuarios, 0, usuarios.size() - 1, isOrdered, porString, columnName);;
+                } else {
+                    // Ordena a lista pelo ID usando Quick Sort
+                    quickSort(usuarios, 0, usuarios.size() - 1, isOrdered, porString, columnName);
+                }
+                isOrdered = !isOrdered;
+                atualizarTabela(tabelaUsuarios);
+            }
+        });
         this.setLocationRelativeTo(null);
     }
     
     Usuario usu = new Usuario();
     
-    public void ObterDados(){
-      
+    public void ObterDados() throws SQLException{
        ResultSet tabela;
        tabela = null;
     
-       tabela = usu.consultarCampoEspecifico();
-       DefaultTableModel modelo = (DefaultTableModel) jtblUsuarios.getModel();
-       modelo.setNumRows(0);
-       try
-       {
-        do{
-            modelo.addRow(new String[]{tabela.getString(2), tabela.getString(3), tabela.getString(4), tabela.getString(5)});
-          }
-        while(tabela.next());
-        }
-        catch(SQLException erro)
+       tabela = usu.listarUsuario();
+       
+       try{
+            usuarios.clear();
+            Usuario usuario;
+            if (tabela.first()) {
+                usuario = new Usuario(
+                        tabela.getInt("id_usuario"),
+                        tabela.getString("nome"),
+                        tabela.getString("email"),
+                        tabela.getString("login"),
+                        tabela.getString("senha"),
+                        tabela.getString("acesso")
+                );
+                usuarios.add(usuario);
+                while(tabela.next()) {         
+                    usuario = new Usuario(
+                            tabela.getInt("id_usuario"),
+                            tabela.getString("nome"),
+                            tabela.getString("email"),
+                            tabela.getString("login"),
+                            tabela.getString("senha"),
+                            tabela.getString("acesso")
+                    );
+                    usuarios.add(usuario);
+                }
+            }
+      } catch(SQLException erro)
         {
-            JOptionPane.showMessageDialog(null, "Erro ao preencher tabela"+ erro) ;    
+            JOptionPane.showMessageDialog(null, "Erro ao preencher a lista de usuarios " + erro) ;    
         }
-      }
+    }
+    
+    private static void atualizarTabela(DefaultTableModel tabela) {
+        tabela.setRowCount(0); // Limpa os dados antigos
+        for (Usuario usuario : usuarios) {
+            tabela.addRow(new Object[]{
+                    usuario.getCodigo(),
+                    usuario.getNome(),
+                    usuario.getEmail(),
+                    usuario.getLogin(),
+                    usuario.getAcesso()
+            });
+        }
+    }
+    
+    private static void quickSort(List<Usuario> list, int low, int high, boolean ordem, boolean porString, String coluna) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high, ordem, porString, coluna);
+            quickSort(list, low, pivotIndex - 1, ordem, porString, coluna);
+            quickSort(list, pivotIndex + 1, high, ordem, porString, coluna);
+        }
+    }
+    
+    private static int partition(List<Usuario> list, int low, int high, boolean ordem, boolean porString, String coluna) {
+        if(porString) {
+            String pivot = null;
+            if("Nome".equals(coluna)) pivot = list.get(high).getNome();
+            if("Email".equals(coluna)) pivot = list.get(high).getEmail();
+            if("Acesso".equals(coluna)) pivot = list.get(high).getAcesso();
+            if("Login".equals(coluna)) pivot = list.get(high).getLogin();
+            
+            int i = low - 1;
+            for (int j = low; j < high; j++) {
+                String chaveComparada = "";
+                if(coluna.equals("Nome")) chaveComparada = list.get(j).getNome();
+                if(coluna.equals("Email")) chaveComparada = list.get(j).getEmail();
+                if(coluna.equals("Acesso")) chaveComparada = list.get(j).getAcesso();
+                if(coluna.equals("Login")) chaveComparada = list.get(j).getLogin();
+                
+                if(ordem) { // se ordem for true, vai ordernar do menor para o maior
+                    if (chaveComparada.compareTo(pivot) <= 0) {
+                        i++;
+                        Collections.swap(list, i, j);
+                    }
+                } else {
+                     if (chaveComparada.compareTo(pivot) >= 0) {
+                        i++;
+                        Collections.swap(list, i, j);
+                    }
+                }
+            }
+            Collections.swap(list, i + 1, high);
+            return i + 1;
+        }
+        else {
+            int pivot = list.get(high).getCodigo(); // Pivô é o ID
+            int i = low - 1;
 
-    
-    public void consultarDados(){
-    ResultSet tabela;
-    tabela = null;
-    
-    tabela = usu.listarUsuario();
-    DefaultTableModel modelo = (DefaultTableModel) jtblUsuarios.getModel();
-    modelo.setNumRows(0);
-    try
-    {
-        do{
-            modelo.addRow(new String[]{tabela.getString(2), tabela.getString(3), tabela.getString(4), tabela.getString(5)});
+            for (int j = low; j < high; j++) {                    
+                if(ordem) { // se ordem for true, vai ordernar do menor para o maior
+                    if (list.get(j).getCodigo()<= pivot) {
+                        i++;
+                        Collections.swap(list, i, j);
+                    }
+                } else {
+                    if (list.get(j).getCodigo() >= pivot) { // maior para o menor
+                        i++;
+                        Collections.swap(list, i, j);
+                    }
+                }
+            }
+            Collections.swap(list, i + 1, high);
+            return i + 1;
         }
-     while(tabela.next());
-    }catch(SQLException erro)
-            {
-            JOptionPane.showMessageDialog(null, "Erro ao preencher tabela"+ erro) ;    
-             }
     }
 
     /**
@@ -91,8 +193,23 @@ public class ListarUsuario extends javax.swing.JFrame {
         jtblUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 201, 11));
 
@@ -185,6 +302,12 @@ public class ListarUsuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setText("Usuários cadastrados");
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
         jtblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -230,9 +353,9 @@ public class ListarUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel4)))
-                .addGap(76, 76, 76)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,9 +428,31 @@ public class ListarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void jtblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblUsuariosMouseClicked
-        // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jtblUsuariosMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel tabelaUsuarios = (DefaultTableModel) jtblUsuarios.getModel();
+            ObterDados();
+            atualizarTabela(tabelaUsuarios);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseClicked
 
     /**
      * @param args the command line arguments

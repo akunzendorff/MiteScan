@@ -148,8 +148,10 @@ public class Colmeia {
             String sql = "select nome from colmeias";
             rs = con.RetornarResultset(sql);
             
-            while(rs.next()){
+            if(rs.first()){
                 colmeias.add(rs.getString("nome"));
+                
+                while(rs.next()) colmeias.add(rs.getString("nome"));
             }
             
         }catch (SQLException e) {
@@ -189,6 +191,12 @@ public class Colmeia {
             dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
             dadosColmeia.put("localizacao", rs.getString("locLat") + rs.getString("locLong"));
             dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+            
+            while(rs.next()){
+                dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
+                dadosColmeia.put("localizacao", rs.getString("locLat") + rs.getString("locLong"));
+                dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+            }
         } 
         
         System.out.println(dadosColmeia);
