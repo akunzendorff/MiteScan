@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,10 +94,20 @@ public class Colmeia {
         this.tipoAbelha = tipoAbelha;
     }
     
-    public void cadastrarColmeia(){
+    public void cadastrarColmeia() throws SQLException{
+        int idAbelha = 0;
+        ResultSet rs;
+        String sqlIdAbelha = "select * from abelhas where nome = '" + getTipoAbelha() + "'";
+        
+        rs = con.RetornarResultset(sqlIdAbelha);
+        
+        if(rs.first()){
+            idAbelha = rs.getInt("id_abelha");
+        }
+        
         String sql = "Insert into colmeias (id_colmeia, nome, locLat, locLong, tamanho, id_abelha) values " +
                 "(" + getCodigo() + ",'" + getNome() + "','" + getLocLat()
-                + "','" + getLocLong() + "','" + getTamanho() + "', " + getTipoAbelha() + " )";
+                + "','" + getLocLong() + "','" + getTamanho() + "', " + idAbelha + " )";
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registrado com sucesso!");  
@@ -119,11 +130,21 @@ public class Colmeia {
         JOptionPane.showMessageDialog(null, "Registro excluido com sucesso.");
     }
     
-    public void editarColmeia(){
+    public void editarColmeia() throws SQLException{
+        int idAbelha = 0;
+        ResultSet rs;
+        String sqlIdAbelha = "select * from abelhas where nome = '" + getTipoAbelha() + "'";
+        
+        rs = con.RetornarResultset(sqlIdAbelha);
+        
+        if(rs.first()){
+            idAbelha = rs.getInt("id_abelha");
+        }
+        
         String sql;
         sql = "Update colmeias set nome = '" + getNome() + "', loclat = '" + getLocLat()
                 + "', loclong = '" + getLocLong() + "', tamanho = '" + getTamanho()
-                + "', id_abelha = " + getTipoAbelha() + " where id_colmeia = " + getCodigo();
+                + "', id_abelha = '" + idAbelha + "' where id_colmeia = " + getCodigo();
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
@@ -161,15 +182,14 @@ public class Colmeia {
         return colmeias;
     }
     
-    public HashMap colmeiasUsuario(Integer idUsuario) throws SQLException{
+    public HashMap<String, List<String>> colmeiasUsuario(Integer idUsuario) throws SQLException{
         ResultSet rs;
         String sql = "select \n" +
             "    a.id_analise,\n" +
             "    u.id_usuario,\n" +
             "    c.id_colmeia,\n" +
             "    c.nome as nome_colmeia,\n" +
-            "    c.locLat,\n" +
-            "    c.locLong,\n" +
+            "    concat(locLat, locLong) as localizacao, \n" +
             "    ab.id_abelha,\n" +
             "    ab.nome as nome_abelha \n" +
             "from \n" +
@@ -185,24 +205,49 @@ public class Colmeia {
         
         rs = con.RetornarResultset(sql);
         
-        HashMap<String, String> dadosColmeia = new HashMap();
-        
-        if(rs.first()){
-            dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
-            dadosColmeia.put("localizacao", rs.getString("locLat") + rs.getString("locLong"));
-            dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+        // Usar uma lista para armazenar múltiplos valores
+        HashMap<String, List<String>> dadosColmeia = new HashMap<>();
+
+        // Inicializando listas para cada chave
+        dadosColmeia.put("nome_colmeia", new ArrayList<>());
+        dadosColmeia.put("localizacao", new ArrayList<>());
+        dadosColmeia.put("nome_abelha", new ArrayList<>());
+
+        // Verificando se o ResultSet tem dados
+        if (rs.first()) {
+            // Adicionando cada valor à lista correspondente
+            dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
+            dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
+            dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
             
             while(rs.next()){
-                dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
-                dadosColmeia.put("localizacao", rs.getString("locLat") + rs.getString("locLong"));
-                dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+                dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
+                dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
+                dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
             }
-        } 
-        
-        System.out.println(dadosColmeia);
-        
+        }
+    
         return dadosColmeia;
         
+    }
+    
+    public ArrayList tiposAbelhas() throws SQLException{
+        ResultSet rs;
+        String sql = "select * from abelhas";
+        
+        rs = con.RetornarResultset(sql);
+        
+        ArrayList<String> abelhas = new ArrayList<>();
+        
+        if(rs.first()){
+            abelhas.add(rs.getString("nome"));
+            
+            while(rs.next()){
+                abelhas.add(rs.getString("nome"));
+            }
+        }
+        
+        return abelhas;
     }
     
 }

@@ -218,7 +218,6 @@ public class Home extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        System.out.println(usuarioId);
     }//GEN-LAST:event_formWindowOpened
 
     /**

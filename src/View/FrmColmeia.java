@@ -6,6 +6,10 @@
 package View;
 
 import Model.Colmeia;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,7 +51,7 @@ public class FrmColmeia extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnLocalizacao = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        btnConectarCamera = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnMiteScan = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
@@ -59,6 +63,11 @@ public class FrmColmeia extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -76,7 +85,7 @@ public class FrmColmeia extends javax.swing.JFrame {
 
         jboxTamanho.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pequena", "Média", "Grande" }));
 
-        jboxTipoAbelha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jboxTipoAbelha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Abelha", "..." }));
         jboxTipoAbelha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jboxTipoAbelhaActionPerformed(evt);
@@ -115,10 +124,10 @@ public class FrmColmeia extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnCamera.png"))); // NOI18N
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnConectarCamera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnCamera.png"))); // NOI18N
+        btnConectarCamera.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                btnConectarCameraMouseClicked(evt);
             }
         });
 
@@ -150,7 +159,7 @@ public class FrmColmeia extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnLimpar)
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnConectarCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrar)
                         .addGap(59, 59, 59))
@@ -158,7 +167,7 @@ public class FrmColmeia extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
-                        .addContainerGap(15, Short.MAX_VALUE))))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +199,7 @@ public class FrmColmeia extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnConectarCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -361,7 +370,11 @@ public class FrmColmeia extends javax.swing.JFrame {
         colm.setNome(txtNome.getText());
         colm.setTamanho((String) jboxTamanho.getSelectedItem());
         colm.setTipoAbelha((String) jboxTipoAbelha.getSelectedItem());
-        colm.cadastrarColmeia();
+        try {
+            colm.cadastrarColmeia();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
@@ -417,12 +430,28 @@ public class FrmColmeia extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_btnAnalisesMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void btnConectarCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConectarCameraMouseClicked
         // TODO add your handling code here:
         this.setVisible(false); 
         ConectarCamera cc = new ConectarCamera();
         cc.setVisible(true);
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_btnConectarCameraMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        jboxTipoAbelha.removeAllItems();
+        
+        ArrayList abelhas = null;
+        try {
+            abelhas = colm.tiposAbelhas();
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(Object abelha : abelhas){
+            jboxTipoAbelha.addItem(abelha);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -463,6 +492,7 @@ public class FrmColmeia extends javax.swing.JFrame {
     private javax.swing.JLabel btnAnalises;
     private javax.swing.JLabel btnCadastrar;
     private javax.swing.JLabel btnColmeias;
+    private javax.swing.JLabel btnConectarCamera;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnLimpar;
@@ -477,7 +507,6 @@ public class FrmColmeia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
