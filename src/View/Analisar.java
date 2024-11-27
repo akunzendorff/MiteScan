@@ -6,11 +6,13 @@
 package View;
 
 import Model.Colmeia;
+import Utils.Constantes;
 import static Utils.Constantes.usuarioId;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +28,7 @@ public class Analisar extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    Colmeia c = new Colmeia();
+    Colmeia colm = new Colmeia();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,7 +158,7 @@ public class Analisar extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setText("ANALISAR AGORA");
 
-        comboBoxColmeias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colmeia 1", "...", " ", " ", " " }));
+        comboBoxColmeias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Colmeia 1", "...", "...", "...", " ", " " }));
         comboBoxColmeias.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -329,16 +331,22 @@ public class Analisar extends javax.swing.JFrame {
         // TODO add your handling code here:
         comboBoxColmeias.removeAllItems();
         
-        ArrayList colmeias = null;
+        int usuarioId = Constantes.getUsuarioId(); 
+        
+        ArrayList<String> colmeias = null;
         try {
-            colmeias = c.colmeiasUser();
+            colmeias = colm.colmeiasUser(usuarioId);
         } catch (SQLException ex) {
             Logger.getLogger(Analisar.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         
-        for(Object colmeia : colmeias){
-            comboBoxColmeias.addItem(colmeia);
-        }
+            for (String colmeia : colmeias) {
+                comboBoxColmeias.addItem(colmeia); // Adiciona os itens ao JComboBox
+            }
+        
+
+
         
     }//GEN-LAST:event_formWindowOpened
 

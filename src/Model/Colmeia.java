@@ -6,9 +6,10 @@
 package Model;
 
 import Control.Conexao;
-import static Utils.Constantes.usuarioId;
+import Utils.Constantes;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -254,23 +255,26 @@ public class Colmeia {
         return abelhas;
     }
     
-    public ArrayList colmeiasUser() throws SQLException{
-        ResultSet rs;
+    public ArrayList<String> colmeiasUser(int usuarioId) throws SQLException{
+        
         String sql = "select * from colmeias where id_usuario = " + usuarioId;
         
-        rs = con.RetornarResultset(sql);
+        con.RetornarResultset(sql);
         
         ArrayList<String> colmeias = new ArrayList<>();
         
-        if(rs.first()){
-            colmeias.add(rs.getString("nome"));
-            
-            while(rs.next()){
-                colmeias.add(rs.getString("nome"));
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, usuarioId); // Define o valor do parâmetro
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                colmeias.add(rs.getString("nome")); // Adiciona o nome ao ArrayList
             }
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao buscar colmeias para o usuário: " + e.getMessage());
         }
         
         return colmeias;
     }
-    
+        
 }

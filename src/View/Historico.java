@@ -82,8 +82,18 @@ public class Historico extends javax.swing.JFrame {
         });
 
         btnHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/historico-menor.png"))); // NOI18N
+        btnHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHistoricoMouseClicked(evt);
+            }
+        });
 
         btnAnalisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/abelha-preta-média.png"))); // NOI18N
+        btnAnalisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnalisarMouseClicked(evt);
+            }
+        });
 
         btnPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/pessoas.png"))); // NOI18N
         btnPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,6 +335,9 @@ public class Historico extends javax.swing.JFrame {
 
     private void btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
+        FrmUsuario fu = new FrmUsuario();
+        fu.setVisible(true);
     }//GEN-LAST:event_btnPerfilMouseClicked
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
@@ -333,6 +346,20 @@ public class Historico extends javax.swing.JFrame {
         Home h = new Home();
         h.setVisible(true);
     }//GEN-LAST:event_btnVoltarMouseClicked
+
+    private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Historico hist = new Historico();
+        hist.setVisible(true);
+    }//GEN-LAST:event_btnHistoricoMouseClicked
+
+    private void btnAnalisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnalisarMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Analisar a = new Analisar();
+        a.setVisible(true);
+    }//GEN-LAST:event_btnAnalisarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -377,34 +404,16 @@ public class Historico extends javax.swing.JFrame {
     private javax.swing.JLabel btnMiteScan;
     private javax.swing.JLabel btnPerfil;
     private javax.swing.JLabel btnVoltar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblData;

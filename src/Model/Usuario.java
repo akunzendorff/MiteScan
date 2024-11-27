@@ -114,8 +114,7 @@ public class Usuario {
     public void editarUsuario(){
         String sql;
         sql = "Update usuarios set nome = '" + getNome() + "', email = '" + getEmail()
-                + "', login = '" + getLogin() + "', senha = '" + getSenha()
-                + "', acesso = '" + getAcesso() + "' where id_usuario = " + getCodigo();
+                + "', login = '" + getLogin() + "', acesso = '" + getAcesso() + "' where id_usuario = " + getCodigo();
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");

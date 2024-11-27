@@ -10,4 +10,8 @@ package Utils;
  */
 public class Constantes {
     public static Integer usuarioId = null;
+    
+    public static int getUsuarioId(){
+        return usuarioId;
+    }
 }

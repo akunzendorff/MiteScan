@@ -180,6 +180,9 @@
                   <Image iconType="3" name="/View/icones/historico-menor.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHistoricoMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="btnAnalisar">
               <Properties>
@@ -187,6 +190,9 @@
                   <Image iconType="3" name="/View/icones/abelha-preta-m&#xe9;dia.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAnalisarMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="btnPerfil">
               <Properties>
