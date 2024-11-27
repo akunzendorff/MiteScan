@@ -6,6 +6,7 @@
 package Model;
 
 import Control.Conexao;
+import static Utils.Constantes.usuarioId;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.sql.ResultSet;
@@ -209,6 +210,7 @@ public class Colmeia {
         HashMap<String, List<String>> dadosColmeia = new HashMap<>();
 
         // Inicializando listas para cada chave
+        dadosColmeia.put("id_colmeia", new ArrayList<>());
         dadosColmeia.put("nome_colmeia", new ArrayList<>());
         dadosColmeia.put("localizacao", new ArrayList<>());
         dadosColmeia.put("nome_abelha", new ArrayList<>());
@@ -216,11 +218,13 @@ public class Colmeia {
         // Verificando se o ResultSet tem dados
         if (rs.first()) {
             // Adicionando cada valor à lista correspondente
+            dadosColmeia.get("id_colmeia").add(rs.getString("id_colmeia"));
             dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
             dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
             dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
             
             while(rs.next()){
+                dadosColmeia.get("id_colmeia").add(rs.getString("id_colmeia"));
                 dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
                 dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
                 dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
@@ -248,6 +252,25 @@ public class Colmeia {
         }
         
         return abelhas;
+    }
+    
+    public ArrayList colmeiasUser() throws SQLException{
+        ResultSet rs;
+        String sql = "select * from colmeias where id_usuario = " + usuarioId;
+        
+        rs = con.RetornarResultset(sql);
+        
+        ArrayList<String> colmeias = new ArrayList<>();
+        
+        if(rs.first()){
+            colmeias.add(rs.getString("nome"));
+            
+            while(rs.next()){
+                colmeias.add(rs.getString("nome"));
+            }
+        }
+        
+        return colmeias;
     }
     
 }

@@ -6,7 +6,11 @@
 package View;
 
 import Model.Colmeia;
+import static Utils.Constantes.usuarioId;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -325,11 +329,17 @@ public class Analisar extends javax.swing.JFrame {
         // TODO add your handling code here:
         comboBoxColmeias.removeAllItems();
         
-        ArrayList colmeias = c.carregarColmeias();
+        ArrayList colmeias = null;
+        try {
+            colmeias = c.colmeiasUser();
+        } catch (SQLException ex) {
+            Logger.getLogger(Analisar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         for(Object colmeia : colmeias){
             comboBoxColmeias.addItem(colmeia);
         }
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**

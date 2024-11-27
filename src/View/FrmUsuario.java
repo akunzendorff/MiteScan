@@ -507,6 +507,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             lblLogin.setText((String) dadosUsuario.get("login"));
             lblAcesso.setText((String) dadosUsuario.get("acesso"));
             
+            
         } catch (SQLException ex) {
             Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

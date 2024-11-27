@@ -6,10 +6,18 @@
 package View;
 
 import Model.Colmeia;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -26,6 +34,18 @@ public class FrmColmeia extends javax.swing.JFrame {
     }
     
     Colmeia colm = new Colmeia();
+    
+    String url1 = "http://maps.google.com.br/maps?hl=pt-br&biw=1600&bih=718&q=";
+    String latitude1 = "-24.49587428414635";
+    String longitude1 = "-47.84632853494361";
+    String latitude2 = "-24.50202";
+    String longitude2 = "-47.8411";
+    String url2 = "%2C";  // separador entre coordenadas
+    String url3 = "&um=1&ie=UTF-8&sa=N&tab=wl";    
+
+    // Concatenar as coordenadas para dois pontos no mapa
+    String urlFinal = url1 + latitude1 + url2 + longitude1 + url2 + latitude2 + url2 + longitude2 + url3;
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -411,9 +431,55 @@ public class FrmColmeia extends javax.swing.JFrame {
 
     private void btnLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizacaoActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        Localizacao loc = new Localizacao();
-        loc.setVisible(true);
+        try {        
+                abreNavegador(urlFinal);
+            } catch (Exception ex) {
+                Logger.getLogger(EditarColmeia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+    }
+
+    public static void abreNavegador(String url) throws Exception{
+
+    //CODIGO COMENTADO PARA ABRIR O NAVEGADOR    
+    //    try {
+    //        URI uri = new URI(url);
+    //        Desktop desktop = null;
+    //        if (Desktop.isDesktopSupported()) {
+    //            desktop = Desktop.getDesktop();
+    //        }
+    //        if (desktop != null)
+    //            desktop.browse(uri);
+    //        } catch (IOException ioe) {
+    //            ioe.printStackTrace();
+    //        } catch (URISyntaxException use) {
+    //            use.printStackTrace();
+    //            
+
+           SwingUtilities.invokeLater(() -> {
+                JFrame frame = new JFrame("Navegador com Suporte a JavaScript");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(800, 600);
+
+                // Painel JavaFX para integrar com o Swing
+                JFXPanel jfxPanel = new JFXPanel();
+                frame.add(jfxPanel, BorderLayout.CENTER);
+
+                // Executa o código JavaFX na thread correta
+                Platform.runLater(() -> {
+                    WebView webView = new WebView();
+                    WebEngine webEngine = webView.getEngine();
+
+                    // Carrega a página web (JavaScript será executado)
+                    webEngine.load(url);
+
+                    // Cria uma cena JavaFX e a define no JFXPanel
+                    Scene scene = new Scene(webView);
+                    jfxPanel.setScene(scene);
+                });
+
+                frame.setVisible(true);
+            });
     }//GEN-LAST:event_btnLocalizacaoActionPerformed
 
     private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked

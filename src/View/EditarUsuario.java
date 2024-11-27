@@ -51,13 +51,13 @@ public class EditarUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        lblNome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
-        lblAcesso = new javax.swing.JLabel();
+        txtAcesso = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        lblLogin = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
         btnEditar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -168,12 +168,9 @@ public class EditarUsuario extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(226, 226, 226));
 
-        lblNome.setText("...");
-        lblNome.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                lblNomeInputMethodTextChanged(evt);
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
             }
         });
 
@@ -183,25 +180,22 @@ public class EditarUsuario extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblNome)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtNome)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNome)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(226, 226, 226));
 
-        lblEmail.setText("...");
-        lblEmail.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                lblEmailInputMethodTextChanged(evt);
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
             }
         });
 
@@ -211,23 +205,22 @@ public class EditarUsuario extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblEmail)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblEmail)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(226, 226, 226));
 
-        lblAcesso.setText("...");
-        lblAcesso.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblAcessoMouseClicked(evt);
+        txtAcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAcessoActionPerformed(evt);
             }
         });
 
@@ -235,27 +228,24 @@ public class EditarUsuario extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblAcesso)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtAcesso)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblAcesso)
-                .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(226, 226, 226));
 
-        lblLogin.setText("...");
-        lblLogin.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                lblLoginInputMethodTextChanged(evt);
+        txtLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoginActionPerformed(evt);
             }
         });
 
@@ -265,15 +255,15 @@ public class EditarUsuario extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogin)
-                .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnEditar.png"))); // NOI18N
@@ -288,13 +278,13 @@ public class EditarUsuario extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(231, 231, 231)
                         .addComponent(jLabel3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -322,7 +312,8 @@ public class EditarUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(btnEditar)
                 .addContainerGap())
@@ -354,7 +345,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                         .addComponent(btnVoltar)
                         .addGap(491, 491, 491))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(47, 47, 47)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))))
@@ -431,26 +422,17 @@ public class EditarUsuario extends javax.swing.JFrame {
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
+        usu.setCodigo(usuarioId);
+        usu.setNome(txtNome.getText());
+        usu.setEmail(txtEmail.getText());
+        usu.setLogin(txtLogin.getText());
+        usu.setAcesso(txtAcesso.getText());
+        usu.editarUsuario();
+        
         this.setVisible(false);
         FrmUsuario fu = new FrmUsuario();
         fu.setVisible(true);
     }//GEN-LAST:event_btnEditarMouseClicked
-
-    private void lblNomeInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNomeInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblNomeInputMethodTextChanged
-
-    private void lblEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblEmailInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblEmailInputMethodTextChanged
-
-    private void lblLoginInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblLoginInputMethodTextChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblLoginInputMethodTextChanged
-
-    private void lblAcessoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAcessoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblAcessoMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -460,15 +442,32 @@ public class EditarUsuario extends javax.swing.JFrame {
             
             System.out.println(dadosUsuario);
             
-            lblNome.setText((String) dadosUsuario.get("nome"));
-            lblEmail.setText((String) dadosUsuario.get("email"));
-            lblLogin.setText((String) dadosUsuario.get("login"));
-            lblAcesso.setText((String) dadosUsuario.get("acesso"));
+            txtNome.setText((String) dadosUsuario.get("nome"));
+            txtEmail.setText((String) dadosUsuario.get("email"));
+            txtLogin.setText((String) dadosUsuario.get("login"));
+            txtAcesso.setText((String) dadosUsuario.get("acesso"));
             
         } catch (SQLException ex) {
             Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoginActionPerformed
+
+    private void txtAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAcessoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAcessoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,9 +524,9 @@ public class EditarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     public javax.swing.JPanel jPanel7;
-    public javax.swing.JLabel lblAcesso;
-    public javax.swing.JLabel lblEmail;
-    public javax.swing.JLabel lblLogin;
-    public javax.swing.JLabel lblNome;
+    private javax.swing.JTextField txtAcesso;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

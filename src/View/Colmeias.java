@@ -7,21 +7,14 @@ package View;
 
 import Model.Colmeia;
 import static Utils.Constantes.usuarioId;
-import java.awt.Component;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -50,6 +43,8 @@ public class Colmeias extends javax.swing.JFrame {
     public void setTipoAbelha(String tipo) {
         lblTipoAbelha.setText("Tipo de Abelha: " + tipo);
     }
+    
+    int idColmeia = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -505,15 +500,20 @@ public class Colmeias extends javax.swing.JFrame {
             for (int i = 0; i < size; i++) {
                 // Cria um novo HashMap para armazenar os dados da colmeia para cada iteração
                 HashMap<String, String> colmeia = new HashMap<>();
+                
                 colmeia.put("nome_colmeia", dadosColmeia.get("nome_colmeia").get(i));
                 colmeia.put("localizacao", dadosColmeia.get("localizacao").get(i));
                 colmeia.put("nome_abelha", dadosColmeia.get("nome_abelha").get(i));
 
+                idColmeia = Integer.parseInt(dadosColmeia.get("id_colmeia").get(i));
+                
                 // Adiciona o HashMap à lista
                 listaColmeias.add(colmeia);
             }
             // Passa a lista de HashMaps para o método preencherPainelComDados
             preencherPainelComColmeias(listaColmeias);
+            
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(Colmeias.class.getName()).log(Level.SEVERE, null, ex);

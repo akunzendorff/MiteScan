@@ -5,6 +5,11 @@
  */
 package View;
 
+import Model.Colmeia;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author fatec-dsm2
@@ -18,6 +23,10 @@ public class EditarColmeiaII extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+    
+    Colmeia colm = new Colmeia();
+    Colmeias telaColmeias = new Colmeias();
+    EditarColmeia ec = new EditarColmeia();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +48,11 @@ public class EditarColmeiaII extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(236, 236, 236));
 
@@ -181,11 +195,30 @@ public class EditarColmeiaII extends javax.swing.JFrame {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
+        Colmeias c = new Colmeias();
+        c.setVisible(true);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
         // TODO add your handling code here:
+        colm.setCodigo(telaColmeias.idColmeia);
+        colm.setNome(lblColmeia.getText());
+        colm.setTamanho((String) ec.jboxTamanho.getSelectedItem());
+        colm.setTipoAbelha(lblAbelha.getText());
+        try {
+            colm.editarColmeia();
+        } catch (SQLException ex) {
+            Logger.getLogger(EditarColmeiaII.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAlterarMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        lblColmeia.setText(ec.txtNome.getText());
+        System.out.println(ec.txtNome.getText());
+        lblAbelha.setText((String) ec.jboxTipoAbelha.getSelectedItem());
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
