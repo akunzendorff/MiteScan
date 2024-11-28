@@ -191,6 +191,7 @@ public class Colmeias extends javax.swing.JFrame {
         painelColmeia.setBackground(new java.awt.Color(255, 255, 255));
         painelColmeia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        lblNomeColmeia.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblNomeColmeia.setText("...");
         lblNomeColmeia.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -205,6 +206,7 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
+        lblCoordenadas.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblCoordenadas.setText("...");
         lblCoordenadas.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -219,6 +221,7 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
+        lblTipoAbelha.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblTipoAbelha.setText("...");
         lblTipoAbelha.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -233,6 +236,7 @@ public class Colmeias extends javax.swing.JFrame {
             }
         });
 
+        lblCidade.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         lblCidade.setText("...");
         lblCidade.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -272,14 +276,14 @@ public class Colmeias extends javax.swing.JFrame {
         painelColmeiaLayout.setHorizontalGroup(
             painelColmeiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelColmeiaLayout.createSequentialGroup()
-                .addComponent(fotoColmeia, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addComponent(fotoColmeia)
+                .addGap(32, 32, 32)
                 .addGroup(painelColmeiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomeColmeia)
                     .addComponent(lblTipoAbelha)
                     .addComponent(lblCidade)
                     .addComponent(lblCoordenadas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
                 .addComponent(espacoInfos, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusColmeia)
@@ -291,26 +295,27 @@ public class Colmeias extends javax.swing.JFrame {
         );
         painelColmeiaLayout.setVerticalGroup(
             painelColmeiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fotoColmeia, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-            .addComponent(statusColmeia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(espacoInfos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fotoColmeia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelColmeiaLayout.createSequentialGroup()
                 .addGroup(painelColmeiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelColmeiaLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblNomeColmeia)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTipoAbelha)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCidade)
+                        .addGap(27, 27, 27)
+                        .addComponent(lblCoordenadas))
+                    .addGroup(painelColmeiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(statusColmeia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(espacoInfos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelColmeiaLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(btnEditar)
                         .addGap(34, 34, 34)
-                        .addComponent(btnExcluir))
-                    .addGroup(painelColmeiaLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(lblNomeColmeia)
-                        .addGap(27, 27, 27)
-                        .addComponent(lblTipoAbelha)
-                        .addGap(33, 33, 33)
-                        .addComponent(lblCidade)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblCoordenadas)
-                .addGap(24, 24, 24))
+                        .addComponent(btnExcluir)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         painelColmeias.add(painelColmeia);
@@ -348,7 +353,7 @@ public class Colmeias extends javax.swing.JFrame {
                             .addComponent(tituloPagina))))
                 .addGap(44, 44, 44)
                 .addComponent(painelColmeias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
