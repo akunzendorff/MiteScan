@@ -137,8 +137,6 @@ public class Usuario {
         rs = con.RetornarResultset(sql);
         
         HashMap<String, String> dadosUsuario = new HashMap();
-        System.out.println(rs.first());
-        System.out.println(rs.getString("nome"));
         if(rs.first()){
             dadosUsuario.put("nome", rs.getString("nome"));
             dadosUsuario.put("email", rs.getString("email"));

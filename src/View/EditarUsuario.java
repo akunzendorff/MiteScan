@@ -440,8 +440,6 @@ public class EditarUsuario extends javax.swing.JFrame {
             // TODO add your handling code here:
             HashMap dadosUsuario = usu.dadosUsuario(usuarioId);
             
-            System.out.println(dadosUsuario);
-            
             txtNome.setText((String) dadosUsuario.get("nome"));
             txtEmail.setText((String) dadosUsuario.get("email"));
             txtLogin.setText((String) dadosUsuario.get("login"));

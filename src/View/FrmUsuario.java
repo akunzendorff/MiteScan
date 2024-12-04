@@ -500,8 +500,6 @@ public class FrmUsuario extends javax.swing.JFrame {
             // TODO add your handling code here:
             HashMap dadosUsuario = usu.dadosUsuario(usuarioId);
             
-            System.out.println(dadosUsuario);
-            
             lblNome.setText((String) dadosUsuario.get("nome"));
             lblEmail.setText((String) dadosUsuario.get("email"));
             lblLogin.setText((String) dadosUsuario.get("login"));

@@ -9,6 +9,7 @@ import Model.Colmeia;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -28,15 +29,20 @@ public class EditarColmeia extends javax.swing.JFrame {
     /**
      * Creates new form EditarColmeia
      */
-    public EditarColmeia() {
+    
+    int idColmeia;
+    
+    public EditarColmeia(int idColmeia) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.idColmeia = idColmeia;
     }
     
     String cidade = null;
     String coordenadas = null;
     
     Colmeia colm = new Colmeia();
+    Colmeias c = new Colmeias();
     
     String url1 = "http://maps.google.com.br/maps?hl=pt-br&biw=1600&bih=718&q=";
     String latitude1 = "-24.49587428414635";
@@ -384,7 +390,6 @@ public class EditarColmeia extends javax.swing.JFrame {
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        Colmeias c = new Colmeias();
         c.setVisible(true);
     }//GEN-LAST:event_btnVoltarMouseClicked
 
@@ -471,7 +476,13 @@ public class EditarColmeia extends javax.swing.JFrame {
     private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        EditarColmeiaII ec2 = new EditarColmeiaII();
+        HashMap dadosAlterados = new HashMap();
+        
+        dadosAlterados.put("nome_colmeia", txtNome.getText());
+        dadosAlterados.put("tamanho", (String) jboxTamanho.getSelectedItem());
+        dadosAlterados.put("nome_abelha", (String) jboxTipoAbelha.getSelectedItem());
+        
+        EditarColmeiaII ec2 = new EditarColmeiaII(idColmeia, dadosAlterados);
         ec2.setVisible(true);
         
         
@@ -490,6 +501,17 @@ public class EditarColmeia extends javax.swing.JFrame {
         
         for(Object abelha : abelhas){
             jboxTipoAbelha.addItem(abelha);
+        }
+        try {
+            // TODO add your handling code here:
+            HashMap dadosColmeia = colm.dadosColmeia(idColmeia);
+            
+            txtNome.setText((String) dadosColmeia.get("nome_colmeia"));
+            jboxTamanho.setSelectedItem((String) dadosColmeia.get("tamanho"));
+            jboxTipoAbelha.setSelectedItem((String) dadosColmeia.get("nome_abelha"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
 

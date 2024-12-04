@@ -6,17 +6,22 @@
 package View;
 
 import Model.Colmeia;
+import static Utils.Constantes.usuarioId;
 import java.awt.BorderLayout;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -32,20 +37,9 @@ public class FrmColmeia extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-    
+
     Colmeia colm = new Colmeia();
-    
-    String url1 = "http://maps.google.com.br/maps?hl=pt-br&biw=1600&bih=718&q=";
-    String latitude1 = "-24.49587428414635";
-    String longitude1 = "-47.84632853494361";
-    String latitude2 = "-24.50202";
-    String longitude2 = "-47.8411";
-    String url2 = "%2C";  // separador entre coordenadas
-    String url3 = "&um=1&ie=UTF-8&sa=N&tab=wl";    
-
-    // Concatenar as coordenadas para dois pontos no mapa
-    String urlFinal = url1 + latitude1 + url2 + longitude1 + url2 + latitude2 + url2 + longitude2 + url3;
-
+    private JFXPanel jfxPanel;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,7 +65,6 @@ public class FrmColmeia extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnLocalizacao = new javax.swing.JButton();
-        btnConectarCamera = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnMiteScan = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
@@ -113,7 +106,7 @@ public class FrmColmeia extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("PREENCHA AS INFORMÇÕES ABAIXO PARA");
+        jLabel5.setText("PREENCHA AS INFORMAÇÕES ABAIXO PARA");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("CADASTRAR UMA NOVA COLMEIA");
@@ -144,13 +137,6 @@ public class FrmColmeia extends javax.swing.JFrame {
             }
         });
 
-        btnConectarCamera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/btnCamera.png"))); // NOI18N
-        btnConectarCamera.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnConectarCameraMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -174,20 +160,18 @@ public class FrmColmeia extends javax.swing.JFrame {
                     .addComponent(btnLocalizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(105, 105, 105))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnLimpar)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnConectarCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCadastrar)
-                        .addGap(59, 59, 59))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(btnLimpar)
+                        .addGap(112, 112, 112)
+                        .addComponent(btnCadastrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,8 +202,7 @@ public class FrmColmeia extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConectarCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -391,7 +374,11 @@ public class FrmColmeia extends javax.swing.JFrame {
         colm.setTamanho((String) jboxTamanho.getSelectedItem());
         colm.setTipoAbelha((String) jboxTipoAbelha.getSelectedItem());
         try {
-            colm.cadastrarColmeia();
+            colm.cadastrarColmeia(usuarioId);
+            JOptionPane.showMessageDialog(null, "Colmeia cadastrada com sucesso!");
+            this.setVisible(false);
+            Colmeias c = new Colmeias();
+            c.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -431,33 +418,17 @@ public class FrmColmeia extends javax.swing.JFrame {
 
     private void btnLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizacaoActionPerformed
         // TODO add your handling code here:
-        try {        
-                abreNavegador(urlFinal);
-            } catch (Exception ex) {
-                Logger.getLogger(EditarColmeia.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            abreNavegador();
+        } catch (Exception ex) {
+            Logger.getLogger(EditarColmeia.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    public static void abreNavegador(String url) throws Exception{
-
-    //CODIGO COMENTADO PARA ABRIR O NAVEGADOR    
-    //    try {
-    //        URI uri = new URI(url);
-    //        Desktop desktop = null;
-    //        if (Desktop.isDesktopSupported()) {
-    //            desktop = Desktop.getDesktop();
-    //        }
-    //        if (desktop != null)
-    //            desktop.browse(uri);
-    //        } catch (IOException ioe) {
-    //            ioe.printStackTrace();
-    //        } catch (URISyntaxException use) {
-    //            use.printStackTrace();
-    //            
-
-           SwingUtilities.invokeLater(() -> {
-                JFrame frame = new JFrame("Navegador com Suporte a JavaScript");
+    public static void abreNavegador() throws Exception {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Mapa");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(800, 600);
 
@@ -470,16 +441,23 @@ public class FrmColmeia extends javax.swing.JFrame {
                     WebView webView = new WebView();
                     WebEngine webEngine = webView.getEngine();
 
-                    // Carrega a página web (JavaScript será executado)
-                    webEngine.load(url);
+                    String mapPath = new File("src/Utils/mapa.html").toURI().toString();
+                    webEngine.load(mapPath);
 
-                    // Cria uma cena JavaFX e a define no JFXPanel
-                    Scene scene = new Scene(webView);
-                    jfxPanel.setScene(scene);
+                    // Comunicação Java ↔ JavaScript
+                    webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {;
+                        if (newState == Worker.State.SUCCEEDED) {
+                            webEngine.executeScript("initMap();");
+                        }
+                    });
+
+                    // Adiciona o WebView ao JFXPanel
+                    jfxPanel.setScene(new Scene(webView));
                 });
 
                 frame.setVisible(true);
-            });
+            }
+        );
     }//GEN-LAST:event_btnLocalizacaoActionPerformed
 
     private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked
@@ -491,30 +469,25 @@ public class FrmColmeia extends javax.swing.JFrame {
 
     private void btnAnalisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnalisesMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false); 
+        this.setVisible(false);
         Analisar a = new Analisar();
         a.setVisible(true);
     }//GEN-LAST:event_btnAnalisesMouseClicked
 
-    private void btnConectarCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConectarCameraMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false); 
-        ConectarCamera cc = new ConectarCamera();
-        cc.setVisible(true);
-    }//GEN-LAST:event_btnConectarCameraMouseClicked
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         jboxTipoAbelha.removeAllItems();
-        
+
         ArrayList abelhas = null;
         try {
             abelhas = colm.tiposAbelhas();
+
         } catch (SQLException ex) {
-            Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmColmeia.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(Object abelha : abelhas){
+
+        for (Object abelha : abelhas) {
             jboxTipoAbelha.addItem(abelha);
         }
     }//GEN-LAST:event_formWindowOpened
@@ -533,16 +506,21 @@ public class FrmColmeia extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmColmeia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmColmeia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmColmeia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmColmeia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmColmeia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmColmeia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmColmeia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmColmeia.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -558,7 +536,6 @@ public class FrmColmeia extends javax.swing.JFrame {
     private javax.swing.JLabel btnAnalises;
     private javax.swing.JLabel btnCadastrar;
     private javax.swing.JLabel btnColmeias;
-    private javax.swing.JLabel btnConectarCamera;
     private javax.swing.JLabel btnHistorico;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnLimpar;

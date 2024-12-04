@@ -7,6 +7,7 @@ package View;
 
 import Model.Colmeia;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,14 +20,19 @@ public class EditarColmeiaII extends javax.swing.JFrame {
     /**
      * Creates new form EditarColmeiaII
      */
-    public EditarColmeiaII() {
+    int idColmeia;
+    HashMap dadosAlterados;
+    
+    public EditarColmeiaII(int idColmeia, HashMap dadosAlterados) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.idColmeia = idColmeia;
+        this.dadosAlterados = dadosAlterados;
     }
     
     Colmeia colm = new Colmeia();
     Colmeias telaColmeias = new Colmeias();
-    EditarColmeia ec = new EditarColmeia();
+    EditarColmeia ec = new EditarColmeia(idColmeia);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -201,12 +207,13 @@ public class EditarColmeiaII extends javax.swing.JFrame {
 
     private void btnAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseClicked
         // TODO add your handling code here:
-        colm.setCodigo(telaColmeias.idColmeia);
+        colm.setCodigo(idColmeia);
         colm.setNome(lblColmeia.getText());
-        colm.setTamanho((String) ec.jboxTamanho.getSelectedItem());
+        colm.setTamanho((String) dadosAlterados.get("tamanho"));
         colm.setTipoAbelha(lblAbelha.getText());
         try {
             colm.editarColmeia();
+            telaColmeias.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EditarColmeiaII.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -214,9 +221,14 @@ public class EditarColmeiaII extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        lblColmeia.setText(ec.txtNome.getText());
-        System.out.println(ec.txtNome.getText());
-        lblAbelha.setText((String) ec.jboxTipoAbelha.getSelectedItem());
+        try {            
+            lblColmeia.setText((String) dadosAlterados.get("nome_colmeia"));
+            lblLocalizacao.setText("Coordenadas");
+            lblCidade.setText("Nome da Cidade");
+            lblAbelha.setText((String) dadosAlterados.get("nome_abelha"));
+        } catch (Exception ex) {
+            Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_formWindowOpened
 

@@ -6,6 +6,7 @@
 package View;
 
 import Model.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,7 @@ public class FrmCadastrar extends javax.swing.JFrame {
     }
     
     Usuario usu = new Usuario();
+    FrmLogin fl = new FrmLogin();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -363,7 +365,6 @@ public class FrmCadastrar extends javax.swing.JFrame {
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        FrmLogin fl = new FrmLogin();
         fl.setVisible(true);
     }//GEN-LAST:event_btnLoginMouseClicked
 
@@ -375,6 +376,11 @@ public class FrmCadastrar extends javax.swing.JFrame {
         usu.setSenha(txtSenha.getText());
         usu.setAcesso((String) jboxAcesso.getSelectedItem());
         usu.cadastrarUsuario();
+        
+        JOptionPane.showMessageDialog(null,"Usuário cadastrado");
+        
+        this.setVisible(false);
+        fl.setVisible(true);
     }//GEN-LAST:event_btnCadastrarMouseClicked
 
     /**

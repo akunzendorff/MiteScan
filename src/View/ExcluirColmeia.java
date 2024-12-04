@@ -5,6 +5,15 @@
  */
 package View;
 
+import Model.Colmeia;
+import static Utils.Constantes.usuarioId;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author fatec-dsm2
@@ -14,10 +23,17 @@ public class ExcluirColmeia extends javax.swing.JFrame {
     /**
      * Creates new form ExcluirColmeia
      */
-    public ExcluirColmeia() {
+    int idColmeia;
+    
+    public ExcluirColmeia(int idColmeia) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.idColmeia = idColmeia;
     }
+    
+    Colmeias colm = new Colmeias();
+    Colmeia c = new Colmeia();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,6 +56,11 @@ public class ExcluirColmeia extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
@@ -203,11 +224,31 @@ public class ExcluirColmeia extends javax.swing.JFrame {
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         // TODO add your handling code here:
+        this.setVisible(false);
+        colm.setVisible(true);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
         // TODO add your handling code here:
+        c.excluirColmeia(idColmeia);
     }//GEN-LAST:event_btnExcluirMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        try {
+            System.out.println(idColmeia);
+            HashMap<String, String> dadosColmeia = c.dadosColmeia(idColmeia);
+       
+            System.out.println(dadosColmeia);
+            lblNomeColmeia.setText(dadosColmeia.get("nome_colmeia"));
+            lblTipoAbelha.setText(dadosColmeia.get("nome_abelha"));
+            lblCoordenadas.setText(dadosColmeia.get("loc_colmeia"));
+            lblCidade.setText(dadosColmeia.get("loc_colmeia"));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Colmeias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

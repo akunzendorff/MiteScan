@@ -6,10 +6,7 @@
 package Model;
 
 import Control.Conexao;
-import Utils.Constantes;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.sql.PreparedStatement;
+import View.Colmeias;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,8 +25,6 @@ public class Colmeia {
     private String locLong;
     private String tamanho;
     private String tipoAbelha;
-    
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     
     Conexao con = new Conexao();
 
@@ -59,9 +54,7 @@ public class Colmeia {
     }
 
     public void setNome(String nome) {
-        String oldNome = this.nome;
         this.nome = nome;
-        support.firePropertyChange("nome", oldNome, nome);
     }
 
     public String getLocLat() {
@@ -96,7 +89,7 @@ public class Colmeia {
         this.tipoAbelha = tipoAbelha;
     }
     
-    public void cadastrarColmeia() throws SQLException{
+    public void cadastrarColmeia(Integer idUsuario) throws SQLException{
         int idAbelha = 0;
         ResultSet rs;
         String sqlIdAbelha = "select * from abelhas where nome = '" + getTipoAbelha() + "'";
@@ -107,9 +100,9 @@ public class Colmeia {
             idAbelha = rs.getInt("id_abelha");
         }
         
-        String sql = "Insert into colmeias (id_colmeia, nome, locLat, locLong, tamanho, id_abelha) values " +
+        String sql = "Insert into colmeias (id_colmeia, nome, locLat, locLong, tamanho, id_usuario, id_abelha) values " +
                 "(" + getCodigo() + ",'" + getNome() + "','" + getLocLat()
-                + "','" + getLocLong() + "','" + getTamanho() + "', " + idAbelha + " )";
+                + "','" + getLocLong() + "','" + getTamanho() + "', " + idUsuario + ", " + idAbelha + " )";
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registrado com sucesso!");  
@@ -124,12 +117,18 @@ public class Colmeia {
      return tabela;
     }
     
-    public void excluirColmeia(){
+    public void excluirColmeia(int idColmeia){
+        String sqlAnalise = "Delete from analises where id_colmeia = " + idColmeia;
+        con.executeSQL(sqlAnalise);
+        
         String sql;
-        sql = "Delete from colmeias where id_colmeia = " + getCodigo();
+        sql = "Delete from colmeias where id_colmeia = " + idColmeia;
         
         con.executeSQL(sql);
         JOptionPane.showMessageDialog(null, "Registro excluido com sucesso.");
+        
+        Colmeias colm = new Colmeias();
+        colm.setVisible(true);
     }
     
     public void editarColmeia() throws SQLException{
@@ -159,51 +158,22 @@ public class Colmeia {
         con.executeSQL(sql);
         return "";
     }
-   
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-    
-    public ArrayList carregarColmeias(){
-       ArrayList<String> colmeias = new ArrayList<>();
-        try{
-            ResultSet rs;
-            String sql = "select nome from colmeias";
-            rs = con.RetornarResultset(sql);
-            
-            if(rs.first()){
-                colmeias.add(rs.getString("nome"));
-                
-                while(rs.next()) colmeias.add(rs.getString("nome"));
-            }
-            
-        }catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao carregar cidades: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        return colmeias;
-    }
-    
+       
     public HashMap<String, List<String>> colmeiasUsuario(Integer idUsuario) throws SQLException{
         ResultSet rs;
         String sql = "select \n" +
-            "    a.id_analise,\n" +
-            "    u.id_usuario,\n" +
+            "    c.id_usuario,\n" +
             "    c.id_colmeia,\n" +
             "    c.nome as nome_colmeia,\n" +
             "    concat(locLat, locLong) as localizacao, \n" +
             "    ab.id_abelha,\n" +
             "    ab.nome as nome_abelha \n" +
             "from \n" +
-            "    Usuarios u\n" +
-            "join \n" +
-            "    Analises a on u.id_usuario = a.id_usuario\n" +
-            "join \n" +
-            "    Colmeias c on a.id_colmeia = c.id_colmeia\n" +
+            "    Colmeias c\n" +
             "join \n" +
             "    Abelhas ab on c.id_abelha = ab.id_abelha\n" +
             "where \n" +
-            "    u.id_usuario = " + idUsuario;
+            "    c.id_usuario = " + idUsuario;
         
         rs = con.RetornarResultset(sql);
         
@@ -256,25 +226,68 @@ public class Colmeia {
     }
     
     public ArrayList<String> colmeiasUser(int usuarioId) throws SQLException{
+        ResultSet rs;
+        String sql = "select \n" +
+            "    u.id_usuario,\n" +
+            "    c.id_colmeia,\n" +
+            "    c.nome as nome_colmeia,\n" +
+            "    concat(locLat, locLong) as localizacao, \n" +
+            "    ab.id_abelha,\n" +
+            "    ab.nome as nome_abelha \n" +
+            "from \n" +
+            "    Usuarios u\n" +
+            "join \n" +
+            "    Colmeias c on u.id_usuario = c.id_usuario\n" +
+            "join \n" +
+            "    Abelhas ab on c.id_abelha = ab.id_abelha\n" +
+            "where \n" +
+            "    u.id_usuario = " + usuarioId;
         
-        String sql = "select * from colmeias where id_usuario = " + usuarioId;
-        
-        con.RetornarResultset(sql);
+        rs = con.RetornarResultset(sql);
         
         ArrayList<String> colmeias = new ArrayList<>();
         
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, usuarioId); // Define o valor do parâmetro
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                colmeias.add(rs.getString("nome")); // Adiciona o nome ao ArrayList
+        if(rs.first()){
+            colmeias.add(rs.getString("nome_colmeia"));
+            
+            while(rs.next()){
+                colmeias.add(rs.getString("nome_colmeia"));
             }
-        } catch (SQLException e) {
-            throw new SQLException("Erro ao buscar colmeias para o usuário: " + e.getMessage());
         }
         
+        System.out.println(colmeias);
+        
         return colmeias;
+    }
+    
+    public HashMap<String, String> dadosColmeia(int idColmeia) throws SQLException{
+        ResultSet rs;
+                String sql = "select \n" +
+            "    c.id_colmeia,\n" +
+            "    c.nome as nome_colmeia,\n" +
+            "    concat(locLat, locLong) as localizacao, \n" +
+            "    c.tamanho, \n" +
+            "    ab.id_abelha,\n" +
+            "    ab.nome as nome_abelha \n" +
+            "from \n" +
+            "    Colmeias c \n" +
+            "join \n" +
+            "    Abelhas ab on c.id_abelha = ab.id_abelha\n" +
+            "where \n" +
+            "    c.id_colmeia = " + idColmeia;
+                
+        rs = con.RetornarResultset(sql);
+        
+        HashMap<String, String> dadosColmeia = new HashMap<>();
+        if (rs.first()) {
+            dadosColmeia.put("id_colmeia", rs.getString("id_colmeia"));
+            dadosColmeia.put("nome_colmeia", rs.getString("nome_colmeia"));
+            dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
+            dadosColmeia.put("tamanho", rs.getString("tamanho"));
+            dadosColmeia.put("loc_colmeia", rs.getString("localizacao"));
+        }
+    
+        return dadosColmeia;
     }
         
 }

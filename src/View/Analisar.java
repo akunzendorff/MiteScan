@@ -330,9 +330,7 @@ public class Analisar extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         comboBoxColmeias.removeAllItems();
-        
-        int usuarioId = Constantes.getUsuarioId(); 
-        
+               
         ArrayList<String> colmeias = null;
         try {
             colmeias = colm.colmeiasUser(usuarioId);

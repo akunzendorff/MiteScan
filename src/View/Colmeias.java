@@ -421,14 +421,14 @@ public class Colmeias extends javax.swing.JFrame {
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        EditarColmeia ec = new EditarColmeia();
+        EditarColmeia ec = new EditarColmeia(idColmeia);
         ec.setVisible(true);
     }//GEN-LAST:event_btnEditarMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        ExcluirColmeia exc = new ExcluirColmeia();
+        ExcluirColmeia exc = new ExcluirColmeia(idColmeia);
         exc.setVisible(true);
     }//GEN-LAST:event_btnExcluirMouseClicked
 
@@ -514,6 +514,7 @@ public class Colmeias extends javax.swing.JFrame {
                 
                 // Adiciona o HashMap à lista
                 listaColmeias.add(colmeia);
+                
             }
             // Passa a lista de HashMaps para o método preencherPainelComDados
             preencherPainelComColmeias(listaColmeias);
@@ -523,13 +524,13 @@ public class Colmeias extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Colmeias.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+           
     }//GEN-LAST:event_formWindowOpened
 
     private void preencherPainelComColmeias(List<HashMap<String, String>> dadosColmeias) {
 // Limpa o painelModelo antes de adicionar novos painéis
         painelColmeias.removeAll();
-        System.out.println(dadosColmeias);
         // Itera sobre os dados de cada colmeia
 
         for (HashMap<String, String> dados : dadosColmeias) {
@@ -549,7 +550,6 @@ public class Colmeias extends javax.swing.JFrame {
     }
 
     private JPanel configurarPainelColmeia(JPanel painelColmeia, HashMap<String, String> dadosColmeia) {
-        System.out.println(painelColmeia);
         // Reutilizando os JLabels existentes no painel de colmeia e configurando-os com os dados
         JLabel lblNomeColmeia = (JLabel) painelColmeia.getComponent(1); // Supondo que o primeiro componente seja lblNomeColmeia
         JLabel lblCoordenadas = (JLabel) painelColmeia.getComponent(2); // O segundo é lblCoordenadas
