@@ -447,7 +447,7 @@ public class FrmColmeia extends javax.swing.JFrame {
                     // Comunicação Java ↔ JavaScript
                     webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {;
                         if (newState == Worker.State.SUCCEEDED) {
-                            webEngine.executeScript("initMap();");
+//                            webEngine.executeScript("initMap();");
                         }
                     });
 
