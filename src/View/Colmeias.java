@@ -507,7 +507,6 @@ public class Colmeias extends javax.swing.JFrame {
                 HashMap<String, String> colmeia = new HashMap<>();
                 
                 colmeia.put("nome_colmeia", dadosColmeia.get("nome_colmeia").get(i));
-                colmeia.put("localizacao", dadosColmeia.get("localizacao").get(i));
                 colmeia.put("nome_abelha", dadosColmeia.get("nome_abelha").get(i));
 
                 idColmeia = Integer.parseInt(dadosColmeia.get("id_colmeia").get(i));
@@ -552,13 +551,15 @@ public class Colmeias extends javax.swing.JFrame {
     private JPanel configurarPainelColmeia(JPanel painelColmeia, HashMap<String, String> dadosColmeia) {
         // Reutilizando os JLabels existentes no painel de colmeia e configurando-os com os dados
         JLabel lblNomeColmeia = (JLabel) painelColmeia.getComponent(1); // Supondo que o primeiro componente seja lblNomeColmeia
-        JLabel lblCoordenadas = (JLabel) painelColmeia.getComponent(2); // O segundo é lblCoordenadas
-        JLabel lblTipoAbelha = (JLabel) painelColmeia.getComponent(3); // O terceiro é lblTipoAbelha
+        JLabel lblTipoAbelha = (JLabel) painelColmeia.getComponent(2);
+        JLabel lblCidade = (JLabel) painelColmeia.getComponent(3);
+        JLabel lblCoordenadas = (JLabel) painelColmeia.getComponent(4); 
 
         // Configurando os dados no painel de colmeia
         lblNomeColmeia.setText(dadosColmeia.get("nome_colmeia"));
-        lblCoordenadas.setText(dadosColmeia.get("localizacao"));
         lblTipoAbelha.setText(dadosColmeia.get("nome_abelha"));
+        lblCidade.setText("Registro");
+        lblCoordenadas.setText("24°29'53.6'S 47°49'10.1'W");
 
         return painelColmeia;
     }

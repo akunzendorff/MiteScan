@@ -344,7 +344,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ana@abelha.com"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
@@ -359,9 +358,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtSenha">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ana123"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSenhaActionPerformed"/>
               </Events>

@@ -271,7 +271,7 @@ public class Historico extends javax.swing.JFrame {
     private void btnColmeiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColmeiasMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        FrmColmeia fc = new FrmColmeia();
+        Colmeias fc = new Colmeias();
         fc.setVisible(true);
     }//GEN-LAST:event_btnColmeiasMouseClicked
 

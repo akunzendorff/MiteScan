@@ -21,8 +21,8 @@ import javax.swing.JOptionPane;
 public class Colmeia {
     private int codigo;
     private String nome;
-    private String locLat;
-    private String locLong;
+    private String localizacao;
+    private String cidade;
     private String tamanho;
     private String tipoAbelha;
     
@@ -32,11 +32,11 @@ public class Colmeia {
         this(0, "", "", "", "", "");
     }
 
-    public Colmeia(int codigo, String nome, String locLat, String locLong, String tamanho, String tipoAbelha) {
+    public Colmeia(int codigo, String nome, String localizacao, String cidade, String tamanho, String tipoAbelha) {
         this.codigo = codigo;
         this.nome = nome;
-        this.locLat = locLat;
-        this.locLong = locLong;
+        this.localizacao = localizacao;
+        this.cidade = cidade;
         this.tamanho = tamanho;
         this.tipoAbelha = tipoAbelha;
     }
@@ -57,20 +57,20 @@ public class Colmeia {
         this.nome = nome;
     }
 
-    public String getLocLat() {
-        return locLat;
+    public String getLocalizacao() {
+        return localizacao;
     }
 
-    public void setLocLat(String locLat) {
-        this.locLat = locLat;
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
     }
 
-    public String getLocLong() {
-        return locLong;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setLocLong(String locLong) {
-        this.locLong = locLong;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public String getTamanho() {
@@ -100,12 +100,10 @@ public class Colmeia {
             idAbelha = rs.getInt("id_abelha");
         }
         
-        String sql = "Insert into colmeias (id_colmeia, nome, locLat, locLong, tamanho, id_usuario, id_abelha) values " +
-                "(" + getCodigo() + ",'" + getNome() + "','" + getLocLat()
-                + "','" + getLocLong() + "','" + getTamanho() + "', " + idUsuario + ", " + idAbelha + " )";
+        String sql = "Insert into colmeias (id_colmeia, nome, localizacao, cidade, tamanho, id_usuario, id_abelha) values " +
+                "(" + getCodigo() + ",'" + getNome() + "',' " + getLocalizacao() +"', '" + getCidade() + "', '" + getTamanho() + "', " + idUsuario + ", " + idAbelha + " )";
         
-        con.executeSQL(sql);
-        JOptionPane.showMessageDialog(null, "Registrado com sucesso!");  
+        con.executeSQL(sql); 
     }
     
     public ResultSet listarColmeia(){
@@ -143,8 +141,8 @@ public class Colmeia {
         }
         
         String sql;
-        sql = "Update colmeias set nome = '" + getNome() + "', loclat = '" + getLocLat()
-                + "', loclong = '" + getLocLong() + "', tamanho = '" + getTamanho()
+        sql = "Update colmeias set nome = '" + getNome() + "', localizacao = '" + getLocalizacao()
+                + "', cidade = '" + getCidade() + "', tamanho = '" + getTamanho()
                 + "', id_abelha = '" + idAbelha + "' where id_colmeia = " + getCodigo();
         
         con.executeSQL(sql);
@@ -165,7 +163,8 @@ public class Colmeia {
             "    c.id_usuario,\n" +
             "    c.id_colmeia,\n" +
             "    c.nome as nome_colmeia,\n" +
-            "    concat(locLat, locLong) as localizacao, \n" +
+            "    c.localizacao, \n" +                
+            "    c.cidade, \n" +
             "    ab.id_abelha,\n" +
             "    ab.nome as nome_abelha \n" +
             "from \n" +
@@ -184,6 +183,7 @@ public class Colmeia {
         dadosColmeia.put("id_colmeia", new ArrayList<>());
         dadosColmeia.put("nome_colmeia", new ArrayList<>());
         dadosColmeia.put("localizacao", new ArrayList<>());
+        dadosColmeia.put("cidade", new ArrayList<>());
         dadosColmeia.put("nome_abelha", new ArrayList<>());
 
         // Verificando se o ResultSet tem dados
@@ -192,12 +192,14 @@ public class Colmeia {
             dadosColmeia.get("id_colmeia").add(rs.getString("id_colmeia"));
             dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
             dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
+            dadosColmeia.get("cidade").add(rs.getString("cidade"));
             dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
             
             while(rs.next()){
                 dadosColmeia.get("id_colmeia").add(rs.getString("id_colmeia"));
                 dadosColmeia.get("nome_colmeia").add(rs.getString("nome_colmeia"));
                 dadosColmeia.get("localizacao").add(rs.getString("localizacao"));
+                dadosColmeia.get("cidade").add(rs.getString("cidade"));
                 dadosColmeia.get("nome_abelha").add(rs.getString("nome_abelha"));
             }
         }
@@ -231,7 +233,8 @@ public class Colmeia {
             "    u.id_usuario,\n" +
             "    c.id_colmeia,\n" +
             "    c.nome as nome_colmeia,\n" +
-            "    concat(locLat, locLong) as localizacao, \n" +
+            "    c.localizacao, \n" +
+            "    c.cidade, \n" +
             "    ab.id_abelha,\n" +
             "    ab.nome as nome_abelha \n" +
             "from \n" +
@@ -265,7 +268,8 @@ public class Colmeia {
                 String sql = "select \n" +
             "    c.id_colmeia,\n" +
             "    c.nome as nome_colmeia,\n" +
-            "    concat(locLat, locLong) as localizacao, \n" +
+            "    c.localizacao, \n" +
+            "    c.cidade, \n" +
             "    c.tamanho, \n" +
             "    ab.id_abelha,\n" +
             "    ab.nome as nome_abelha \n" +
@@ -285,6 +289,7 @@ public class Colmeia {
             dadosColmeia.put("nome_abelha", rs.getString("nome_abelha"));
             dadosColmeia.put("tamanho", rs.getString("tamanho"));
             dadosColmeia.put("loc_colmeia", rs.getString("localizacao"));
+            dadosColmeia.put("cidade", rs.getString("cidade"));
         }
     
         return dadosColmeia;

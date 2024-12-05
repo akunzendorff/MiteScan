@@ -8,17 +8,13 @@ package View;
 import Model.Colmeia;
 import static Utils.Constantes.usuarioId;
 import java.awt.BorderLayout;
-import java.io.File;
-import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javax.swing.JFrame;
@@ -40,7 +36,8 @@ public class FrmColmeia extends javax.swing.JFrame {
     }
 
     Colmeia colm = new Colmeia();
-    private JFXPanel jfxPanel;
+
+    String urlFinal = "https://www.google.com.br/maps/@-24.4991746,-47.8221809,15.79z?hl=pt-br&entry=ttu&g_ep=EgoyMDI0MTIwNC4wIKXMDSoASAFQAw%3D%3D";
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -420,16 +417,31 @@ public class FrmColmeia extends javax.swing.JFrame {
     private void btnLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizacaoActionPerformed
         // TODO add your handling code here:
         try {
-            abreNavegador();
+            abreNavegador(urlFinal);
         } catch (Exception ex) {
-            Logger.getLogger(EditarColmeia.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static void abreNavegador() throws Exception {
+    public static void abreNavegador(String url) throws Exception {
+
+//CODIGO COMENTADO PARA ABRIR O NAVEGADOR    
+//    try {
+//        URI uri = new URI(url);
+//        Desktop desktop = null;
+//        if (Desktop.isDesktopSupported()) {
+//            desktop = Desktop.getDesktop();
+//        }
+//        if (desktop != null)
+//            desktop.browse(uri);
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//        } catch (URISyntaxException use) {
+//            use.printStackTrace();
+//            
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Mapa");
+            JFrame frame = new JFrame("Navegador com Suporte a JavaScript");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
 
@@ -442,20 +454,18 @@ public class FrmColmeia extends javax.swing.JFrame {
                 WebView webView = new WebView();
                 WebEngine webEngine = webView.getEngine();
 
-                webEngine.load("https://www.google.com.br/maps/@-24.5016979,-47.8196404,11.85z?entry=ttu&g_ep=EgoyMDI0MTIwMi4wIKXMDSoASAFQAw%3D%3D");
+                // Carrega a página web (JavaScript será executado)
+                webEngine.load(url);
 
-                jfxPanel.setScene(new Scene(webView));
+                // Cria uma cena JavaFX e a define no JFXPanel
+                Scene scene = new Scene(webView);
+                jfxPanel.setScene(scene);
             });
 
             frame.setVisible(true);
-            try {
-                sleep(10000);
-                frame.setVisible(false);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        );
+        });
+
+
     }//GEN-LAST:event_btnLocalizacaoActionPerformed
 
     private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked

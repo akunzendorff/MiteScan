@@ -211,6 +211,8 @@ public class EditarColmeiaII extends javax.swing.JFrame {
         colm.setNome(lblColmeia.getText());
         colm.setTamanho((String) dadosAlterados.get("tamanho"));
         colm.setTipoAbelha(lblAbelha.getText());
+        colm.setLocalizacao(lblLocalizacao.getText());
+        colm.setCidade(lblCidade.getText());
         try {
             colm.editarColmeia();
             telaColmeias.setVisible(true);
@@ -223,8 +225,8 @@ public class EditarColmeiaII extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {            
             lblColmeia.setText((String) dadosAlterados.get("nome_colmeia"));
-            lblLocalizacao.setText("Coordenadas");
-            lblCidade.setText("Nome da Cidade");
+            lblLocalizacao.setText("24°29\"53.6\"S 47°49\"10.1\"W");
+            lblCidade.setText("Registro");
             lblAbelha.setText((String) dadosAlterados.get("nome_abelha"));
         } catch (Exception ex) {
             Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);

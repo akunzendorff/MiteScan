@@ -29,31 +29,21 @@ public class EditarColmeia extends javax.swing.JFrame {
     /**
      * Creates new form EditarColmeia
      */
-    
     int idColmeia;
-    
+
     public EditarColmeia(int idColmeia) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.idColmeia = idColmeia;
     }
-    
+
     String cidade = null;
     String coordenadas = null;
-    
+
     Colmeia colm = new Colmeia();
     Colmeias c = new Colmeias();
-    
-    String url1 = "http://maps.google.com.br/maps?hl=pt-br&biw=1600&bih=718&q=";
-    String latitude1 = "-24.49587428414635";
-    String longitude1 = "-47.84632853494361";
-    String latitude2 = "-24.50202";
-    String longitude2 = "-47.8411";
-    String url2 = "%2C";  // separador entre coordenadas
-    String url3 = "&um=1&ie=UTF-8&sa=N&tab=wl";    
 
-    // Concatenar as coordenadas para dois pontos no mapa
-    String urlFinal = url1 + latitude1 + url2 + longitude1 + url2 + latitude2 + url2 + longitude2 + url3;
+    String urlFinal = "https://www.google.com.br/maps/@-24.4991746,-47.8221809,15.79z?hl=pt-br&entry=ttu&g_ep=EgoyMDI0MTIwNC4wIKXMDSoASAFQAw%3D%3D";
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -406,58 +396,56 @@ public class EditarColmeia extends javax.swing.JFrame {
 
     private void btnLocalizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalizacaoActionPerformed
         // TODO add your handling code here:
-       
-            try {        
-                abreNavegador(urlFinal);
-            } catch (Exception ex) {
-                Logger.getLogger(EditarColmeia.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        try {
+            abreNavegador(urlFinal);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    public static void abreNavegador(String url) throws Exception{
+    public static void abreNavegador(String url) throws Exception {
 
-    //CODIGO COMENTADO PARA ABRIR O NAVEGADOR    
-    //    try {
-    //        URI uri = new URI(url);
-    //        Desktop desktop = null;
-    //        if (Desktop.isDesktopSupported()) {
-    //            desktop = Desktop.getDesktop();
-    //        }
-    //        if (desktop != null)
-    //            desktop.browse(uri);
-    //        } catch (IOException ioe) {
-    //            ioe.printStackTrace();
-    //        } catch (URISyntaxException use) {
-    //            use.printStackTrace();
-    //            
+//CODIGO COMENTADO PARA ABRIR O NAVEGADOR    
+//    try {
+//        URI uri = new URI(url);
+//        Desktop desktop = null;
+//        if (Desktop.isDesktopSupported()) {
+//            desktop = Desktop.getDesktop();
+//        }
+//        if (desktop != null)
+//            desktop.browse(uri);
+//        } catch (IOException ioe) {
+//            ioe.printStackTrace();
+//        } catch (URISyntaxException use) {
+//            use.printStackTrace();
+//            
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Navegador com Suporte a JavaScript");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
 
-           SwingUtilities.invokeLater(() -> {
-                JFrame frame = new JFrame("Navegador com Suporte a JavaScript");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(800, 600);
+            // Painel JavaFX para integrar com o Swing
+            JFXPanel jfxPanel = new JFXPanel();
+            frame.add(jfxPanel, BorderLayout.CENTER);
 
-                // Painel JavaFX para integrar com o Swing
-                JFXPanel jfxPanel = new JFXPanel();
-                frame.add(jfxPanel, BorderLayout.CENTER);
+            // Executa o código JavaFX na thread correta
+            Platform.runLater(() -> {
+                WebView webView = new WebView();
+                WebEngine webEngine = webView.getEngine();
 
-                // Executa o código JavaFX na thread correta
-                Platform.runLater(() -> {
-                    WebView webView = new WebView();
-                    WebEngine webEngine = webView.getEngine();
+                // Carrega a página web (JavaScript será executado)
+                webEngine.load(url);
 
-                    // Carrega a página web (JavaScript será executado)
-                    webEngine.load(url);
-
-                    // Cria uma cena JavaFX e a define no JFXPanel
-                    Scene scene = new Scene(webView);
-                    jfxPanel.setScene(scene);
-                });
-
-                frame.setVisible(true);
+                // Cria uma cena JavaFX e a define no JFXPanel
+                Scene scene = new Scene(webView);
+                jfxPanel.setScene(scene);
             });
-           
-    
+
+            frame.setVisible(true);
+        });
+
     }//GEN-LAST:event_btnLocalizacaoActionPerformed
     private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked
         // TODO add your handling code here:
@@ -477,39 +465,39 @@ public class EditarColmeia extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         HashMap dadosAlterados = new HashMap();
-        
+
         dadosAlterados.put("nome_colmeia", txtNome.getText());
         dadosAlterados.put("tamanho", (String) jboxTamanho.getSelectedItem());
         dadosAlterados.put("nome_abelha", (String) jboxTipoAbelha.getSelectedItem());
-        
+
         EditarColmeiaII ec2 = new EditarColmeiaII(idColmeia, dadosAlterados);
         ec2.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_btnAlterarMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         jboxTipoAbelha.removeAllItems();
-        
+
         ArrayList abelhas = null;
         try {
             abelhas = colm.tiposAbelhas();
         } catch (SQLException ex) {
             Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(Object abelha : abelhas){
+
+        for (Object abelha : abelhas) {
             jboxTipoAbelha.addItem(abelha);
         }
         try {
             // TODO add your handling code here:
             HashMap dadosColmeia = colm.dadosColmeia(idColmeia);
-            
+
             txtNome.setText((String) dadosColmeia.get("nome_colmeia"));
             jboxTamanho.setSelectedItem((String) dadosColmeia.get("tamanho"));
             jboxTipoAbelha.setSelectedItem((String) dadosColmeia.get("nome_abelha"));
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(FrmUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

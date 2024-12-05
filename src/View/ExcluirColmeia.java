@@ -6,11 +6,8 @@
 package View;
 
 import Model.Colmeia;
-import static Utils.Constantes.usuarioId;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -242,8 +239,8 @@ public class ExcluirColmeia extends javax.swing.JFrame {
             System.out.println(dadosColmeia);
             lblNomeColmeia.setText(dadosColmeia.get("nome_colmeia"));
             lblTipoAbelha.setText(dadosColmeia.get("nome_abelha"));
-            lblCoordenadas.setText(dadosColmeia.get("loc_colmeia"));
-            lblCidade.setText(dadosColmeia.get("loc_colmeia"));
+            lblCoordenadas.setText("24°29'53.6'S 47°49'10.1'W");
+            lblCidade.setText("Registro");
 
         } catch (SQLException ex) {
             Logger.getLogger(Colmeias.class.getName()).log(Level.SEVERE, null, ex);
