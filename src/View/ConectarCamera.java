@@ -263,8 +263,8 @@ public class ConectarCamera extends javax.swing.JFrame {
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false); 
-        FrmColmeia fc = new FrmColmeia();
-        fc.setVisible(true);
+        Analisar a = new Analisar();
+        a.setVisible(true);
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoricoMouseClicked
@@ -284,8 +284,8 @@ public class ConectarCamera extends javax.swing.JFrame {
     private void btnFinalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        Analisar a = new Analisar();
-        a.setVisible(true);
+        LoadingAnalise la = new LoadingAnalise();
+        la.setVisible(true);
     }//GEN-LAST:event_btnFinalizarMouseClicked
 
     /**

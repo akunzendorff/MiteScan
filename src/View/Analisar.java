@@ -314,8 +314,8 @@ public class Analisar extends javax.swing.JFrame {
     private void btnAnalisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnalisarMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        LoadingAnalise load = new LoadingAnalise();
-        load.setVisible(true);
+        ConectarCamera conect = new ConectarCamera();
+        conect.setVisible(true);
     }//GEN-LAST:event_btnAnalisarMouseClicked
 
     private void comboBoxColmeiasInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_comboBoxColmeiasInputMethodTextChanged

@@ -9,6 +9,7 @@ import Model.Colmeia;
 import static Utils.Constantes.usuarioId;
 import java.awt.BorderLayout;
 import java.io.File;
+import static java.lang.Thread.sleep;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -429,34 +430,31 @@ public class FrmColmeia extends javax.swing.JFrame {
     public static void abreNavegador() throws Exception {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Mapa");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(800, 600);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
 
-                // Painel JavaFX para integrar com o Swing
-                JFXPanel jfxPanel = new JFXPanel();
-                frame.add(jfxPanel, BorderLayout.CENTER);
+            // Painel JavaFX para integrar com o Swing
+            JFXPanel jfxPanel = new JFXPanel();
+            frame.add(jfxPanel, BorderLayout.CENTER);
 
-                // Executa o código JavaFX na thread correta
-                Platform.runLater(() -> {
-                    WebView webView = new WebView();
-                    WebEngine webEngine = webView.getEngine();
+            // Executa o código JavaFX na thread correta
+            Platform.runLater(() -> {
+                WebView webView = new WebView();
+                WebEngine webEngine = webView.getEngine();
 
-                    String mapPath = new File("src/Utils/mapa.html").toURI().toString();
-                    webEngine.load(mapPath);
+                webEngine.load("https://www.google.com.br/maps/@-24.5016979,-47.8196404,11.85z?entry=ttu&g_ep=EgoyMDI0MTIwMi4wIKXMDSoASAFQAw%3D%3D");
 
-                    // Comunicação Java ↔ JavaScript
-                    webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {;
-                        if (newState == Worker.State.SUCCEEDED) {
-//                            webEngine.executeScript("initMap();");
-                        }
-                    });
+                jfxPanel.setScene(new Scene(webView));
+            });
 
-                    // Adiciona o WebView ao JFXPanel
-                    jfxPanel.setScene(new Scene(webView));
-                });
-
-                frame.setVisible(true);
+            frame.setVisible(true);
+            try {
+                sleep(10000);
+                frame.setVisible(false);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FrmColmeia.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
         );
     }//GEN-LAST:event_btnLocalizacaoActionPerformed
 

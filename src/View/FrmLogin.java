@@ -100,7 +100,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/Email_.png"))); // NOI18N
 
-        txtEmail.setText("leal@cattus.com");
+        txtEmail.setText("ana@abelha.com");
         txtEmail.setToolTipText("");
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +110,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icones/Senha_.png"))); // NOI18N
 
-        txtSenha.setText("leal123");
+        txtSenha.setText("ana123");
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSenhaActionPerformed(evt);
